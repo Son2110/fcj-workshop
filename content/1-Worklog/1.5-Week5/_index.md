@@ -1,57 +1,35 @@
 ---
 title: "Week 5 Worklog"
-date: "`r Sys.Date()`"
+date: "2025-09-09"
 weight: 1
 chapter: false
 pre: " <b> 1.5. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
+
 
 
 ### Week 5 Objectives:
 
-* Connect and get acquainted with members of First Cloud Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Review knowledges about VPC, EC2, S3, ...
+* Translate 3 blogs
+* Know about minimax algorithm
 
 ### Tasks to be carried out this week:
 | Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| 2   | - Review knowledges from module 1 to module 5 <br>&emsp; + VPC <br>&emsp; + EC2 <br>&emsp; + S3 <br>&emsp; + Security <br>&emsp; + ...                                                                                                  | 10/06/2025 | 10/06/2025      |
+| 3   | - Translate 3 blogs <br>&emsp; + Rox accelerates sales productivity with AI agents powered by Amazon Bedrock  <br>&emsp; + How Laravel Nightwatch handles billions of observability events in real time with Amazon MSK and ClickHouse Cloud <br>&emsp;  + How to export to Amazon S3 Tables by using AWS Step Functions Distributed Map                                         | 10/07/2025 | 10/07/2025      |  |
+| 4   | - Review about React <br>&emsp; + Component <br>&emsp; + Props <br>&emsp; + React hook <br> - Learn about minimax algorithms <br> - ***Practice*** <br>&emsp; + Create simple tic tac toe game| 10/08/2025 | 10/08/2025      | <https://coderschool.notion.site/Naver-AI-Hackathon-Week-1-Web-Minimax-284ea86d567a80f98983c7c219c4308b> |
+| 5   | - Create tic-tac-toe game for player play with AI with 2 mode easy and hard                          | 10/09/2025 | 10/09/2025      | <https://coderschool.notion.site/Week-1-Assignment-React-27fea86d567a80718ce4ee04b19ed8d9> |
+| 6   | - Continue fix bugs and optimize tic-tac-toe game  <br> - Edit blogs                                                                                   | 10/10/2025 | 10/10/2025      | <https://github.com/Son2110/tic-tac-toe-ai> |
 
 
 ### Week 5 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Review knowledges about VPC, EC2, S3, and Security, ... 
 
-* Successfully created and configured an AWS Free Tier account.
+* Completely translate 3 blogs
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+* Understand about minimax algorithm
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Successfully create tic-tac-toe app for player play with AI with 2 mode easy and hard base on minimax algoritm

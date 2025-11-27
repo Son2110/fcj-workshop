@@ -1,57 +1,39 @@
 ---
 title: "Week 6 Worklog"
-date: "`r Sys.Date()`"
+date: "2025-09-09"
 weight: 1
 chapter: false
 pre: " <b> 1.6. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
 
 ### Week 6 Objectives:
 
-* Connect and get acquainted with members of First Cloud Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Understand about database concept of AWS
+* Know how to create DB and connect DB to EC2
+* Complete assignment of hackathon
 
 ### Tasks to be carried out this week:
 | Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| 2   | - Learn about database on AWS <br>&emsp; + Amazon RDS <br>&emsp; + Amazon Aurora <br>&emsp; + Amazon Redshift <br>&emsp; + Amazon Elasticache                                                                                               | 10/13/2025 | 10/13/2025      | <https://www.youtube.com/watch?v=OOD2RwWuLRw&list=PLahN4TLWtox2a3vElknwzU_urND8hLn1i&index=217>
+| 3   | - Do labs 05 <br> - **Practice:** <br>&emsp; + Create EC2 and RDS <br>&emsp; + Deploy application on EC2 and connect to RDS  <br> &emsp; + Know backup and restore                                             | 10/14/2025 | 10/14/2025      | <https://000005.awsstudygroup.com/> |
+| 4   | - Learn about distributed System <br>&emsp; + Review network: TCP, HTTP; <br>&emsp; + Websocket | 10/15/2025 | 10/15/2025      | <https://coderschool.notion.site/Naver-AI-Hackathon-Week-2-Web-Distributed-Systems-28bea86d567a80f0acf9e624986dcdf6> |
+| 5   | - **Practice:** <br>&emsp; + Create multiplayer odd/even tic-tac-toe game                            | 10/16/2025 | 10/16/2025      | <https://coderschool.notion.site/Week-2-Assignment-React-28bea86d567a8044bd23fd69e3d9b8df> |
+| 6   | - **Practice:** <br>&emsp; + Continue fix bugs and complete game                                                                                    | 10/17/2025 | 10/17/2025      | <https://github.com/Son2110/tic-tac-toe-even-odd> |
 
 
 ### Week 6 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Understood fundamental database concepts:
+  * RDBMS and NOSQL
+  * OLTP and OLAP
+  * Amazon RDS and Aurora
+  * Amazon Redshift
+  * Amazon ElastiCache
 
-* Successfully created and configured an AWS Free Tier account.
+* Successfully created an configured an Amazon RDS instance.
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+* Learned to connect to and interact with remote databases using SQL clients or command-line tools from an EC2 instance.
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Create successfully odd/even tic-tac-toe game

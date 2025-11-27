@@ -1,57 +1,37 @@
 ---
 title: "Week 7 Worklog"
-date: "`r Sys.Date()`"
+date: "2025-09-09"
 weight: 1
 chapter: false
 pre: " <b> 1.7. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
 
 ### Week 7 Objectives:
 
-* Connect and get acquainted with members of First Cloud Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Complete labs of module 7
+* Complet assignment of Hackathon
 
 ### Tasks to be carried out this week:
 | Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| 2   | - Review database concepts knowledge                                                                                                   | 10/20/2025 | 10/20/2025      |
+| 3   | - Learn about Agile <br>&emsp; + Scrum <br>&emsp; + Kanban <br> - **Practice** - Write product vison and pitch                                              | 10/21/2025 | 10/21/2025      | <https://coderschool.notion.site/Naver-AI-Hackathon-Week-3-From-Idea-to-Impact-292ea86d567a80779621c45b102205e7> |
+| 4   | - Do 2 labs 35 and 40 <br> - **Practice:** <br>&emsp; + Use AWS Glue to scan data in S3 <br>&emsp; + Connect Amazon Athena to AWS Glue <br> &emsp; + Connect Amazon QuickSight to Amazon Athena | 10/22/2025 | 10/22/2025      | <https://000035.awsstudygroup.com/> <br> <https://000040.awsstudygroup.com/>|
+| 5   | - Do 2 labs 60 and 70 <br> - **Practice:** <br>&emsp; + Use SDK to create table, CRUD data in Amazon DynamoDB <br>&emsp; + Build a datalake with data stored in S3                            | 10/23/2025 | 10/23/2025      | <https://000060.awsstudygroup.com/> <br> <https://000070.awsstudygroup.com/>|
+| 6   | - Do 2 labs 72 and 73 <br> - **Practice:** <br>&emsp; + Use AWS Glue to visually profile, clean and transfrom raw data without writing code <br>&emsp; + Build dashboard via QuickSight <br>&emsp;                                                                                      | 10/24/2025 | 10/24/2025      | <https://000072.awsstudygroup.com/> <br> <https://000073.awsstudygroup.com/> |
 
 
 ### Week 7 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Successfully created product vison and pitch.
+  
+* Understood the architecture of a Serverless Data Lake and Analytics services: 
+  * AWS Glue
+  * Amazon Athena
+  * Amazon QuickSight
 
-* Successfully created and configured an AWS Free Tier account.
+* Designed and published interactive dashboards using Amazon QuickSight to visualize data insights and support business decision-making
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+* Used Amazon Athena to analyze data directly from S3 using standard SQL for cost analysis and performance monitoring.
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
