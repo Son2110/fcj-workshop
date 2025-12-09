@@ -13,7 +13,7 @@ pre: " <b> 7. </b> "
 The office environment is super nice and professional. Everyone at FCJ is friendly and approachable. I never felt scared to ask questions. Plus, working at Bitexco Tower gives a really cool vibe that makes me want to go to work every day.
 
 **2. Support from Mentor / Team Admin**
-My mentor is awesome. Instead of just giving me the answers, they guide me on how to search and solve problems myself, which helps me learn faster. The Admin team is also very helpful with paperwork and setting up accounts, so I didn't have any issues getting started.
+My mentor is awesome. Instead of just giving me the answers, they guide me on how to search and solve problems myself, which helps me learn faster. The Admin team is also very helpful with setting up accounts, so I didn't have any issues getting started.
 
 **3. Relevance of Work to Academic Major**
 It fits perfectly with my IT major. At university, I learned a lot of theory, but here I got to practice on real AWS services like EC2, S3, and Bedrock. It bridged the gap between school books and the real world.
@@ -25,8 +25,7 @@ I didn't just learn about Cloud and Coding. I also learned how to write professi
 The culture here is "Work hard, Play hard." People are serious when working but very fun during breaks. I feel respected even though I'm just an intern. There is no toxic hierarchy here.
 
 **6. Internship Policies / Benefits**
-The allowance is fair for an intern. What I appreciate most is the flexible schedule, allowing me to balance work and my remaining classes at school. Also, getting free tickets to tech events is a huge plus!
-
+The allowance is fair for an intern. What I appreciate most is the register system, which allows us to balance the register with the office. Also, getting the chance to join tech events is a huge plus!
 ---
 
 ### Additional Questions
@@ -35,7 +34,7 @@ The allowance is fair for an intern. What I appreciate most is the flexible sche
 The most satisfying thing was successfully deploying my first project on AWS and seeing it run live. Also, being able to attend the "AWS Cloud Mastery" workshops and meet industry experts was a highlight.
 
 - **What do you think the company should improve for future interns?**
-I think the onboarding documentation could be a bit more detailed. For the first few days, I was a bit confused about where to find things. A "Starter Kit" guide would be great.
+None
 
 - **If recommending to a friend, would you suggest they intern here? Why or why not?**
 Definitely, YES. If my friends want to learn about Cloud and DevOps seriously, this is the place. You get to touch real systems, not just fetch coffee.
