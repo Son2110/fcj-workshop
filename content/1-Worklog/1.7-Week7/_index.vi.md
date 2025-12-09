@@ -5,55 +5,31 @@ weight: 1
 chapter: false
 pre: " <b> 1.7. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
-
 
 ### Mục tiêu tuần 7:
 
-* Kết nối, làm quen với các thành viên trong First Cloud Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Hoàn thành các bài lab của module 7.
+* Hoàn thành bài tập của Hackathon.
 
 ### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| Thứ | Công việc                                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ | --------------- | ----------------------------------------- |
+| 2   | - Ôn tập kiến thức về các khái niệm cơ sở dữ liệu                                                                                                  | 20/10/2025   | 20/10/2025      |                                           |
+| 3   | - Tìm hiểu về Agile <br>&emsp; + Scrum <br>&emsp; + Kanban <br> - **Thực hành:** Viết tầm nhìn sản phẩm (product vision) và bài thuyết trình (pitch)                                                | 21/10/2025   | 21/10/2025      | <https://coderschool.notion.site/Naver-AI-Hackathon-Week-3-From-Idea-to-Impact-292ea86d567a80779621c45b102205e7> |
+| 4   | - Thực hiện 2 bài lab 35 và 40 <br> - **Thực hành:** <br>&emsp; + Sử dụng AWS Glue để quét dữ liệu trong S3 <br>&emsp; + Kết nối Amazon Athena với AWS Glue <br> &emsp; + Kết nối Amazon QuickSight với Amazon Athena | 22/10/2025   | 22/10/2025      | <https://000035.awsstudygroup.com/> <br> <https://000040.awsstudygroup.com/>|
+| 5   | - Thực hiện 2 bài lab 60 và 70 <br> - **Thực hành:** <br>&emsp; + Sử dụng SDK để tạo bảng, CRUD dữ liệu trong Amazon DynamoDB <br>&emsp; + Xây dựng data lake với dữ liệu lưu trữ trong S3                            | 23/10/2025   | 23/10/2025      | <https://000060.awsstudygroup.com/> <br> <https://000070.awsstudygroup.com/>|
+| 6   | - Thực hiện 2 bài lab 72 và 73 <br> - **Thực hành:** <br>&emsp; + Sử dụng AWS Glue để hồ sơ hóa, làm sạch và chuyển đổi dữ liệu thô một cách trực quan mà không cần viết code <br>&emsp; + Xây dựng dashboard thông qua QuickSight <br>&emsp;                                                                                      | 24/10/2025   | 24/10/2025      | <https://000072.awsstudygroup.com/> <br> <https://000073.awsstudygroup.com/> |
 
 
 ### Kết quả đạt được tuần 7:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Đã tạo thành công tầm nhìn sản phẩm (product vision) và bài thuyết trình (pitch).
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Hiểu kiến trúc của Serverless Data Lake và các dịch vụ Analytics:
+  * AWS Glue 
+  * Amazon Athena 
+  * Amazon QuickSight
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+* Thiết kế và xuất bản các dashboard tương tác bằng Amazon QuickSight để trực quan hóa dữ liệu chi tiết và hỗ trợ ra quyết định kinh doanh. 
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Sử dụng Amazon Athena để phân tích dữ liệu trực tiếp từ S3 bằng SQL tiêu chuẩn để phân tích chi phí và giám sát hiệu suất.

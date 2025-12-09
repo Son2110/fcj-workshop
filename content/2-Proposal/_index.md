@@ -1,115 +1,124 @@
 ---
 title: "Proposal"
-date: "2025-09-09"
 weight: 2
 chapter: false
 pre: " <b> 2. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-In this section, you need to summarize the contents of the workshop that you **plan** to conduct.
-
-# IoT Weather Platform for Lab Research
-## A Unified AWS Serverless Solution for Real-Time Weather Monitoring
+# Smart Office Management System for Lab Research
+## A Unified AWS Serverless Solution for Real-Time Monitoring & Administration
 
 ### 1. Executive Summary
-The IoT Weather Platform is designed for the ITea Lab team in Ho Chi Minh City to enhance weather data collection and analysis. It supports up to 5 weather stations, with potential scalability to 10-15, utilizing Raspberry Pi edge devices with ESP32 sensors to transmit data via MQTT. The platform leverages AWS Serverless services to deliver real-time monitoring, predictive analytics, and cost efficiency, with access restricted to 5 lab members via Amazon Cognito.
+The Smart Office Management System is proposed by Team **Skyscraper** from **FPTU HCM Campus**, inspired by the operational excellence observed during a field trip to the AWS office in Ho Chi Minh City. Traditional office management lacks real-time visibility into room conditions (temperature, humidity, light) and relies heavily on manual oversight. To address this, we propose a centralized **Management Console** built on a fully **AWS Serverless architecture**. By leveraging services like AWS IoT Core, Lambda, and DynamoDB, the system collects sensor data every 2-5 minutes to support real-time monitoring and allows administrators to manage device configurations remotely. This project also serves as a strategic "First Cloud AI Journey", enabling the team to bridge the gap between theoretical knowledge and practical application of Cloud Computing.
 
 ### 2. Problem Statement
-### What’s the Problem?
-Current weather stations require manual data collection, becoming unmanageable with multiple units. There is no centralized system for real-time data or analytics, and third-party platforms are costly and overly complex.
+#### What’s the Problem?
+Nowadays, managing office environments in research labs requires manual intervention to check device statuses (lights, air conditioners) and environmental conditions. Managers often lack the data needed to make informed decisions about energy usage or room comfort. Operating devices on fixed schedules (e.g., 8 a.m. to 5 p.m.) without regarding actual room usage or environmental factors leads to energy waste. Furthermore, without a centralized dashboard, administrators cannot quickly detect anomalies or configure settings for multiple rooms efficiently.
 
-### The Solution
-The platform uses AWS IoT Core to ingest MQTT data, AWS Lambda and API Gateway for processing, Amazon S3 for storage (including a data lake), and AWS Glue Crawlers and ETL jobs to extract, transform, and load data from the S3 data lake to another S3 bucket for analysis. AWS Amplify with Next.js provides the web interface, and Amazon Cognito ensures secure access. Similar to Thingsboard and CoreIoT, users can register new devices and manage connections, though this platform operates on a smaller scale and is designed for private use. Key features include real-time dashboards, trend analysis, and low operational costs.
+#### The Solution
+The platform uses **AWS IoT Core** to ingest MQTT data from room sensors, **AWS Lambda** and **API Gateway** for backend logic and processing, **Amazon DynamoDB** for storing sensor logs and room configurations, and **Amazon S3** combined with **CloudFront** to host the web management dashboard. Access is strictly secured via **Amazon Cognito**. **Amazon EventBridge** is utilized to handle scheduled automation tasks, while **Amazon SNS** ensures timely notifications for system alerts. This solution replaces manual tracking with a digital, real-time management console capable of monitoring multiple rooms simultaneously.
 
-### Benefits and Return on Investment
-The solution establishes a foundational resource for lab members to develop a larger IoT platform, serving as a study resource, and provides a data foundation for AI enthusiasts for model training or analysis. It reduces manual reporting for each station via a centralized platform, simplifying management and maintenance, and improves data reliability. Monthly costs are $0.66 USD per the AWS Pricing Calculator, with a 12-month total of $7.92 USD. All IoT equipment costs are covered by the existing weather station setup, eliminating additional development expenses. The break-even period of 6-12 months is achieved through significant time savings from reduced manual work.
+#### Benefits and Return on Investment
+The Smart Office Management System enhances operational efficiency by providing a single pane of glass for monitoring and configuration. It empowers lab managers to control devices remotely and make data-driven decisions. Beyond operational improvements, the project provides a reusable serverless foundation for future IoT research at the university.
+
+Monthly operating costs are estimated at **$1.81 USD**, utilizing the AWS Free Tier for services like Lambda, API Gateway, and DynamoDB. Major costs include CloudFront ($1.27) and CloudWatch ($0.25), totaling approximately **$21.72 USD per year**. Since the system leverages existing ESP32 hardware and sensors, there are no additional capital expenditures. The system offers immediate value through time savings and reduced management effort.
 
 ### 3. Solution Architecture
-The platform employs a serverless AWS architecture to manage data from 5 Raspberry Pi-based stations, scalable to 15. Data is ingested via AWS IoT Core, stored in an S3 data lake, and processed by AWS Glue Crawlers and ETL jobs to transform and load it into another S3 bucket for analysis. Lambda and API Gateway handle additional processing, while Amplify with Next.js hosts the dashboard, secured by Cognito. The architecture is detailed below:
+The Smart Office system adopts a fully serverless AWS architecture optimized for cost efficiency and scalability. Data from multiple sensor hubs is transmitted to AWS IoT Core, processed by Lambda functions, and stored in DynamoDB for real-time monitoring and configuration management. EventBridge automates scheduled device actions, while SNS handles system notifications. The web dashboard is hosted on S3 and delivered securely via CloudFront, with user authentication managed through Amazon Cognito. This architecture minimizes operational overhead and ensures high reliability for smart environment control.
 
-![IoT Weather Station Architecture](/images/2-Proposal/edge_architecture.jpeg)
+![Smart Office Architecture](/images/2-Proposal/Smart-Office-Architect-Diagram.drawio.png)
 
-![IoT Weather Platform Architecture](/images/2-Proposal/platform_architecture.jpeg)
+#### AWS Services Used
+- **AWS IoT Core**: Ingests and manages MQTT data from smart room hubs, enabling secure communication between edge devices and the cloud.
+- **AWS Lambda**: Executes backend logic for processing sensor telemetry, handling API requests, and executing management commands (Serverless Compute).
+- **Amazon API Gateway**: Exposes secure RESTful endpoints for the web dashboard to interact with the backend services.
+- **Amazon DynamoDB**: Provides fast, NoSQL storage for room configurations, device states, and historical sensor logs.
+- **Amazon EventBridge**: Orchestrates event-driven workflows, such as scheduled configuration updates or heartbeat checks.
+- **Amazon SNS**: Sends email notifications to administrators regarding system alerts or critical updates.
+- **Amazon S3**: Hosts the frontend static assets (HTML, CSS, JS) for the Management Dashboard.
+- **Amazon CloudFront**: Delivers the web application globally with low latency and SSL security.
+- **Amazon Cognito**: Manages user identity, authentication, and access control for the Management Console.
+- **Amazon CloudWatch**: Collects logs and metrics to monitor system health and debug Lambda executions.
 
-### AWS Services Used
-- **AWS IoT Core**: Ingests MQTT data from 5 stations, scalable to 15.
-- **AWS Lambda**: Processes data and triggers Glue jobs (two functions).
-- **Amazon API Gateway**: Facilitates web app communication.
-- **Amazon S3**: Stores raw data in a data lake and processed outputs (two buckets).
-- **AWS Glue**: Crawlers catalog data, and ETL jobs transform and load it.
-- **AWS Amplify**: Hosts the Next.js web interface.
-- **Amazon Cognito**: Secures access for lab users.
-
-### Component Design
-- **Edge Devices**: Raspberry Pi collects and filters sensor data, sending it to IoT Core.
-- **Data Ingestion**: AWS IoT Core receives MQTT messages from the edge devices.
-- **Data Storage**: Raw data is stored in an S3 data lake; processed data is stored in another S3 bucket.
-- **Data Processing**: AWS Glue Crawlers catalog the data, and ETL jobs transform it for analysis.
-- **Web Interface**: AWS Amplify hosts a Next.js app for real-time dashboards and analytics.
-- **User Management**: Amazon Cognito manages user access, allowing up to 5 active accounts.
+#### Component Design
+- **Sensor Hubs**: IoT-enabled devices (ESP32) in each room collect telemetry (temperature, humidity, light) and transmit it to **AWS IoT Core** every few minutes.
+- **Data Ingestion**: **AWS IoT Core** rules trigger the **HandleTelemetry Lambda**, which validates data and persists it to **Amazon DynamoDB**.
+- **Configuration Management**: Administrators use the dashboard to update room settings. The **RoomConfigHandler Lambda** updates DynamoDB and pushes changes to devices via IoT Core Shadows or MQTT.
+- **User Interaction**: The **Web Dashboard** (on **S3/CloudFront**) visualizes real-time data and provides a control interface.
+- **User Authentication**: **Amazon Cognito** ensures only authorized lab members can log in and access sensitive room data.
+- **Monitoring & Reliability**: **Amazon CloudWatch** tracks system performance, ensuring high availability and rapid troubleshooting.
 
 ### 4. Technical Implementation
 **Implementation Phases**
-This project has two parts—setting up weather edge stations and building the weather platform—each following 4 phases:
-- Build Theory and Draw Architecture: Research Raspberry Pi setup with ESP32 sensors and design the AWS serverless architecture (1 month pre-internship)
-- Calculate Price and Check Practicality: Use AWS Pricing Calculator to estimate costs and adjust if needed (Month 1).
-- Fix Architecture for Cost or Solution Fit: Tweak the design (e.g., optimize Lambda with Next.js) to stay cost-effective and usable (Month 2).
-- Develop, Test, and Deploy: Code the Raspberry Pi setup, AWS services with CDK/SDK, and Next.js app, then test and release to production (Months 2-3).
+- **Research & Foundation (Weeks 1-7)**: Study core AWS services (IoT Core, Lambda, DynamoDB, S3, API Gateway, Cognito) and understand Serverless design patterns.
+- **Architecture Design & Estimation (Week 8)**: Finalize the solution diagram for an 8-room setup and use the AWS Pricing Calculator to forecast the budget.
+- **Development (Weeks 9-11)**:
+    - Implement firmware/scripts for IoT data simulation.
+    - Develop Backend: Lambda functions, DynamoDB tables, and API Gateway resources using CloudFormation/CDK.
+    - Develop Frontend: Build the Management Dashboard and integrate with APIs.
+- **Testing & Deployment (Week 12)**: Perform end-to-end testing, validate data flow from sensors to the dashboard, and deploy the system to the production environment.
 
 **Technical Requirements**
-- Weather Edge Station: Sensors (temperature, humidity, rainfall, wind speed), a microcontroller (ESP32), and a Raspberry Pi as the edge device. Raspberry Pi runs Raspbian, handles Docker for filtering, and sends 1 MB/day per station via MQTT over Wi-Fi.
-- Weather Platform: Practical knowledge of AWS Amplify (hosting Next.js), Lambda (minimal use due to Next.js), AWS Glue (ETL), S3 (two buckets), IoT Core (gateway and rules), and Cognito (5 users). Use AWS CDK/SDK to code interactions (e.g., IoT Core rules to S3). Next.js reduces Lambda workload for the fullstack web app.
+- **Hardware Layer**: ESP32-based Sensor Hubs monitoring environmental metrics.
+- **Cloud Layer**: A fully serverless stack on AWS (IoT Core, Lambda, DynamoDB, API Gateway, S3, CloudFront, Cognito, EventBridge, SNS).
+- **DevOps**: Infrastructure as Code (IaC) using AWS CloudFormation for reproducible deployments.
+- **Interface**: A responsive web dashboard allowing real-time monitoring and configuration updates.
 
 ### 5. Timeline & Milestones
 **Project Timeline**
-- Pre-Internship (Month 0): 1 month for planning and old station review.
-- Internship (Months 1-3): 3 months.
-    - Month 1: Study AWS and upgrade hardware.
-    - Month 2: Design and adjust architecture.
-    - Month 3: Implement, test, and launch.
-- Post-Launch: Up to 1 year for research.
+- **Weeks 1–7**: Deep dive into AWS services and complete "First Cloud AI Journey" fundamental training.
+- **Week 8**: Design the system architecture and finalize cost estimation.
+- **Weeks 9–11**: Core development phase (Backend logic, Database schema, Frontend UI integration).
+- **Week 12**: System integration testing, debugging, and final Go-Live presentation.
 
 ### 6. Budget Estimation
-You can find the budget estimation on the [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=621f38b12a1ef026842ba2ddfe46ff936ed4ab01).  
-Or you can download the [Budget Estimation File](../attachments/budget_estimation.pdf).
+You can find the budget estimation on the [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=0db12150c448b012356e475becefd549c37094d8).  
+Or you can download the [Budget Estimation File](/file/proposal/smart_office_pricing_caculator.pdf).
 
 ### Infrastructure Costs
-- AWS Services:
-    - AWS Lambda: $0.00/month (1,000 requests, 512 MB storage).
-    - S3 Standard: $0.15/month (6 GB, 2,100 requests, 1 GB scanned).
-    - Data Transfer: $0.02/month (1 GB inbound, 1 GB outbound).
-    - AWS Amplify: $0.35/month (256 MB, 500 ms requests).
-    - Amazon API Gateway: $0.01/month (2,000 requests).
-    - AWS Glue ETL Jobs: $0.02/month (2 DPUs).
-    - AWS Glue Crawlers: $0.07/month (1 crawler).
-    - MQTT (IoT Core): $0.08/month (5 devices, 45,000 messages).
+**AWS Services:**
+- **Amazon DynamoDB**: Free (Always Free Tier: 25GB Storage).
+- **AWS Lambda**: Free (Always Free Tier: 1M requests/month).
+- **AWS IoT Core**: $0.18/month (8 devices, sending data every 2 mins).
+- **Amazon API Gateway**: Free (Free Tier: 1M calls/month for 12 months).
+- **Amazon S3**: Free (Standard storage < 5GB).
+- **Amazon CloudFront**: $1.27/month (Based on est. data transfer and requests).
+- **Amazon EventBridge**: Free (Free Tier events).
+- **Amazon SNS**: $0.02/month (Email notifications).
+- **Amazon CloudWatch**: $0.25/month (Log ingestion and storage).
+- **Amazon Cognito**: Free (Free Tier: 50,000 MAUs).
 
-Total: $0.7/month, $8.40/12 months
-
-- Hardware: $265 one-time (Raspberry Pi 5 and sensors).
+**Hardware:** Mock script
+**Total:** ≈ **$1.81/month**, or **$21.72/year** (optimized within AWS Free Tier).
 
 ### 7. Risk Assessment
 #### Risk Matrix
-- Network Outages: Medium impact, medium probability.
-- Sensor Failures: High impact, low probability.
-- Cost Overruns: Medium impact, low probability.
+- **IoT Connectivity Issues**: Medium impact, medium probability.
+- **Sensor Data Inaccuracy**: Medium impact, low probability.
+- **Unexpected AWS Charges**: Low impact, low probability (due to strict budget alerts).
+- **Security Misconfiguration**: High impact, low probability.
 
 #### Mitigation Strategies
-- Network: Local storage on Raspberry Pi with Docker.
-- Sensors: Regular checks and spares.
-- Cost: AWS budget alerts and optimization.
+- **Connectivity**: Implement retry logic on edge devices and local buffering.
+- **Cost**: Configure AWS Budgets to alert when spending exceeds $5.00.
+- **Security**: Enforce strict IAM policies (Least Privilege) and require authentication for all API access via Cognito.
+- **Reliability**: Use CloudWatch Logs to trace errors in Lambda execution immediately.
 
 #### Contingency Plans
-- Revert to manual methods if AWS fails.
-- Use CloudFormation for cost-related rollbacks.
+- Enable manual override controls if the cloud system becomes unavailable.
+- Maintain a backup of the CloudFormation templates for rapid redeployment.
 
 ### 8. Expected Outcomes
-#### Technical Improvements: 
-Real-time data and analytics replace manual processes.  
-Scalable to 10-15 stations.
-#### Long-term Value
-1-year data foundation for AI research.  
-Reusable for future projects.
+#### Technical Improvements:
+- Replaces manual checks with **real-time digital monitoring**.
+- Provides a **centralized platform** for managing configurations across multiple rooms.
+- Establishes a **scalable architecture** capable of supporting more devices in the future.
+
+#### Long-term Value:
+- Serves as a practical **learning hub** for students to master AWS Serverless technologies.
+- Provides data insights that can lead to better energy usage policies in the lab.
+- Demonstrates a cost-effective, production-ready cloud solution.
+
+## Proposal Link
+
+[Smart_Office_Proposal](/file/proposal/Smart_Office_Proposal.docx)

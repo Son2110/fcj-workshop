@@ -1,125 +1,100 @@
 ---
 title: "Event 2"
 date: "2025-09-09"
-weight: 1
+weight: 2
 chapter: false
 pre: " <b> 4.2. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
-# Bài thu hoạch “GenAI-powered App-DB Modernization workshop”
+# Báo cáo tổng hợp: "AWS Cloud Mastery Series #1: AI/ML/GenAI trên AWS"
 
-### Mục Đích Của Sự Kiện
+### Mục tiêu tham dự
 
-- Chia sẻ best practices trong thiết kế ứng dụng hiện đại
-- Giới thiệu phương pháp DDD và event-driven architecture
-- Hướng dẫn lựa chọn compute services phù hợp
-- Giới thiệu công cụ AI hỗ trợ development lifecycle
+- Tìm hiểu khái niệm cơ bản về Mô hình nền tảng (Foundation Model).
+- Học hỏi các phương pháp kỹ thuật đặt câu lệnh (Prompting) để tối ưu kết quả đầu ra.
+- Khám phá khả năng của Generative AI thông qua dịch vụ Amazon Bedrock.
+- Tìm hiểu về kiến trúc RAG (Retrieval-Augmented Generation) và cách tích hợp cơ sở tri thức (Knowledge Base).
 
-### Danh Sách Diễn Giả
+### Diễn giả
 
-- **Jignesh Shah** - Director, Open Source Databases
-- **Erica Liu** - Sr. GTM Specialist, AppMod
-- **Fabrianne Effendi** - Assc. Specialist SA, Serverless Amazon Web Services
+- **Danh Hoang Hieu Nghi**
+- **Lam Truong Kiet**
+- **Dinh Le Hoang Anh**
 
-### Nội Dung Nổi Bật
+### Những điểm nổi bật
 
-#### Đưa ra các ảnh hưởng tiêu cực của kiến trúc ứng dụng cũ
+#### Kỹ thuật Prompting (Kỹ thuật gợi ý)
 
-- Thời gian release sản phẩm lâu → Mất doanh thu/bỏ lỡ cơ hội
-- Hoạt động kém hiệu quả → Mất năng suất, tốn kém chi phí
-- Không tuân thủ các quy định về bảo mật → Mất an ninh, uy tín
+- **Tối ưu hóa câu lệnh**: Hiểu được tầm quan trọng của việc soạn thảo prompt rõ ràng và cụ thể để mô hình AI trả về kết quả chính xác hơn.
+- **Tư duy chuỗi (Chain of Thought)**: Một phương pháp hướng dẫn AI xử lý vấn đề từng bước một, giúp cải thiện khả năng suy luận logic.
 
-#### Chuyển đổi sang kiến trúc ứng dụng mới - Microservice Architecture
+#### RAG (Retrieval-Augmented Generation)
 
-Chuyển đổi thành hệ thống modular – từng chức năng là một **dịch vụ độc lập** giao tiếp với nhau qua **sự kiện** với 3 trụ cột cốt lõi:
+- **Mở rộng khả năng của AI**: Hiểu được cách kết hợp AI với nguồn dữ liệu nội bộ của doanh nghiệp thay vì chỉ dựa vào dữ liệu huấn luyện có sẵn.
+- **Tính chính xác và thời gian thực**: RAG giúp giảm thiểu hiện tượng "ảo giác" (AI tự bịa thông tin) và đảm bảo câu trả lời luôn được cập nhật mới nhất.
 
-- **Queue Management**: Xử lý tác vụ bất đồng bộ
-- **Caching Strategy:** Tối ưu performance
-- **Message Handling:** Giao tiếp linh hoạt giữa services
+#### Vector Embedding (Nhúng Vector)
 
-#### Domain-Driven Design (DDD)
+- **Biểu diễn dữ liệu**: Cách chuyển đổi văn bản thành các vector số học để máy tính có thể hiểu được ngữ nghĩa và mối quan hệ giữa các từ.
+- **Nắm bắt ngữ cảnh**: Các mô hình embedding giúp hệ thống hiểu được sắc thái của văn bản.
+- **Đa ngôn ngữ**: Khả năng so sánh và tìm kiếm ngữ nghĩa tương đồng giữa các ngôn ngữ khác nhau.
 
-- **Phương pháp 4 bước**: Xác định domain events → sắp xếp timeline → identify actors → xác định bounded contexts
-- **Case study bookstore**: Minh họa cách áp dụng DDD thực tế
-- **Context mapping**: 7 patterns tích hợp bounded contexts
+#### Các dịch vụ AI của AWS
 
-#### Event-Driven Architecture
+- **Amazon Rekognition**: Nhận diện hình ảnh và video.
+- **Amazon Translate**: Dịch thuật tự động.
+- **Amazon Textract**: Trích xuất dữ liệu từ văn bản quét.
+- **Amazon Transcribe**: Chuyển đổi giọng nói thành văn bản.
+- **Amazon Polly**: Chuyển đổi văn bản thành giọng nói tự nhiên.
+- **Amazon Comprehend**: Phân tích văn bản và cảm xúc.
+- **Amazon Kendra**: Công cụ tìm kiếm thông minh cho doanh nghiệp.
+- **Amazon Lookout**: Phát hiện bất thường trong dữ liệu.
+- **Amazon Personalize**: Hệ thống gợi ý cá nhân hóa.
 
-- **3 patterns tích hợp**: Publish/Subscribe, Point-to-point, Streaming
-- **Lợi ích**: Loose coupling, scalability, resilience
-- **So sánh sync vs async**: Hiểu rõ trade-offs (sự đánh đổi)
+### Bài học rút ra
 
-#### Compute Evolution
+#### Cải thiện kỹ năng Prompting
 
-- **Shared Responsibility Model**: Từ EC2 → ECS → Fargate → Lambda
-- **Serverless benefits**: No server management, auto-scaling, pay-for-value
-- **Functions vs Containers**: Criteria lựa chọn phù hợp
+- **Cung cấp ngữ cảnh**: Việc đưa ra các ví dụ cụ thể (few-shot prompting) giúp AI hiểu rõ yêu cầu hơn.
+- **Hướng dẫn chi tiết**: Giải thích cho AI quy trình xử lý từng bước để giải quyết vấn đề.
 
-#### Amazon Q Developer
+#### Ứng dụng của RAG
 
-- **SDLC automation**: Từ planning đến maintenance
-- **Code transformation**: Java upgrade, .NET modernization
-- **AWS Transform agents**: VMware, Mainframe, .NET migration
+- **Giảm thiểu sai sót**: Kết nối với nguồn kiến thức đã được kiểm chứng của doanh nghiệp.
+- **Nâng cao Chatbot**: Tích hợp dữ liệu thời gian thực để Chatbot phản hồi thông minh hơn.
+- **Tìm kiếm cá nhân hóa**: Dựa trên lịch sử và chân dung người dùng.
+- **Tổng hợp dữ liệu**: Trích xuất thông tin từ các tài liệu giao dịch.
 
-### Những Gì Học Được
+#### Amazon Titan Embeddings
 
-#### Tư Duy Thiết Kế
+- **Tìm kiếm theo ngữ nghĩa**: Cho phép tìm kiếm dựa trên ý nghĩa của từ khóa thay vì chỉ khớp ký tự.
+- **Hiệu năng**: Hỗ trợ xử lý lượng token lớn và đa dạng ngôn ngữ.
 
-- **Business-first approach**: Luôn bắt đầu từ business domain, không phải technology
-- **Ubiquitous language**: Importance của common vocabulary giữa business và tech teams
-- **Bounded contexts**: Cách identify và manage complexity trong large systems
+### Kế hoạch áp dụng vào công việc
 
-#### Kiến Trúc Kỹ Thuật
+- **Nghiên cứu thêm**: Tiếp tục tìm hiểu sâu hơn về các dịch vụ AI để đánh giá khả năng áp dụng cho các dự án tương lai.
+- **Thử nghiệm**: Bắt đầu thực hành các kỹ thuật prompting đã học để nâng cao hiệu quả làm việc.
 
-- **Event storming technique**: Phương pháp thực tế để mô hình hóa quy trình kinh doanh
-- Sử dụng **Event-driven communication** thay vì synchronous calls
-- **Integration patterns**: Hiểu khi nào dùng sync, async, pub/sub, streaming
-- **Compute spectrum**: Criteria chọn từ VM → containers → serverless
+### Trải nghiệm sự kiện
 
-#### Chiến Lược Hiện Đại Hóa
+Tham dự workshop **“AI/ML/GenAI trên AWS”** là một cơ hội quý báu giúp tôi bước đầu tiếp cận với lĩnh vực AI trên nền tảng đám mây. Dưới đây là những trải nghiệm chính:
 
-- **Phased approach**: Không rush, phải có roadmap rõ ràng
-- **7Rs framework**: Nhiều con đường khác nhau tùy thuộc vào đặc điểm của mỗi ứng dụng
-- **ROI measurement**: Cost reduction + business agility
+#### Học hỏi từ chuyên gia
+- Các diễn giả từ FACJ đã chia sẻ những kinh nghiệm thực tiễn (best practices) về việc triển khai AI, giúp tôi hình dung rõ hơn về quy trình áp dụng vào thực tế.
+- Thông qua các ví dụ cụ thể, tôi đã hiểu rõ hơn về cách vận hành của kỹ thuật prompting.
 
-### Ứng Dụng Vào Công Việc
+#### Khám phá thực tế các dịch vụ
+- Việc xem demo trực tiếp giúp tôi hiểu cơ chế hoạt động của các dịch vụ AWS AI và cách chúng giải quyết các bài toán đời sống.
 
-- **Áp dụng DDD** cho project hiện tại: Event storming sessions với business team
-- **Refactor microservices**: Sử dụng bounded contexts để identify service boundaries
-- **Implement event-driven patterns**: Thay thế một số sync calls bằng async messaging
-- **Serverless adoption**: Pilot AWS Lambda cho một số use cases phù hợp
-- **Try Amazon Q Developer**: Integrate vào development workflow để boost productivity
+#### Hướng dẫn xây dựng Agent
+- Thu nhận được kiến thức nền tảng cần thiết để bắt đầu tìm hiểu về việc xây dựng các Tác nhân AI (AI Agent).
 
-### Trải nghiệm trong event
+#### Một số hình ảnh tại sự kiện
 
-Tham gia workshop **“GenAI-powered App-DB Modernization”** là một trải nghiệm rất bổ ích, giúp tôi có cái nhìn toàn diện về cách hiện đại hóa ứng dụng và cơ sở dữ liệu bằng các phương pháp và công cụ hiện đại. Một số trải nghiệm nổi bật:
+![piture_1](/images/event2/5ab4e034235cac02f54d.jpg)
+![piture_2](/images/event2/ad8f3c65ff0d7053291c.jpg)
+![piture_3](/images/event2/ee86c36900018f5fd610.jpg)
 
-#### Học hỏi từ các diễn giả có chuyên môn cao
-- Các diễn giả đến từ AWS và các tổ chức công nghệ lớn đã chia sẻ **best practices** trong thiết kế ứng dụng hiện đại.
-- Qua các case study thực tế, tôi hiểu rõ hơn cách áp dụng **Domain-Driven Design (DDD)** và **Event-Driven Architecture** vào các project lớn.
 
-#### Trải nghiệm kỹ thuật thực tế
-- Tham gia các phiên trình bày về **event storming** giúp tôi hình dung cách **mô hình hóa quy trình kinh doanh** thành các domain events.
-- Học cách **phân tách microservices** và xác định **bounded contexts** để quản lý sự phức tạp của hệ thống lớn.
-- Hiểu rõ trade-offs giữa **synchronous và asynchronous communication** cũng như các pattern tích hợp như **pub/sub, point-to-point, streaming**.
-
-#### Ứng dụng công cụ hiện đại
-- Trực tiếp tìm hiểu về **Amazon Q Developer**, công cụ AI hỗ trợ SDLC từ lập kế hoạch đến maintenance.
-- Học cách **tự động hóa code transformation** và pilot serverless với **AWS Lambda**, từ đó nâng cao năng suất phát triển.
-
-#### Kết nối và trao đổi
-- Workshop tạo cơ hội trao đổi trực tiếp với các chuyên gia, đồng nghiệp và team business, giúp **nâng cao ngôn ngữ chung (ubiquitous language)** giữa business và tech.
-- Qua các ví dụ thực tế, tôi nhận ra tầm quan trọng của **business-first approach**, luôn bắt đầu từ nhu cầu kinh doanh thay vì chỉ tập trung vào công nghệ.
-
-#### Bài học rút ra
-- Việc áp dụng DDD và event-driven patterns giúp giảm **coupling**, tăng **scalability** và **resilience** cho hệ thống.
-- Chiến lược hiện đại hóa cần **phased approach** và đo lường **ROI**, không nên vội vàng chuyển đổi toàn bộ hệ thống.
-- Các công cụ AI như Amazon Q Developer có thể **boost productivity** nếu được tích hợp vào workflow phát triển hiện tại.
-
-#### Một số hình ảnh khi tham gia sự kiện
-* Thêm các hình ảnh của các bạn tại đây
-> Tổng thể, sự kiện không chỉ cung cấp kiến thức kỹ thuật mà còn giúp tôi thay đổi cách tư duy về thiết kế ứng dụng, hiện đại hóa hệ thống và phối hợp hiệu quả hơn giữa các team.
+> Nhìn chung, sự kiện đã trang bị cho tôi những kiến thức nền tảng quan trọng về Generative AI, tạo tiền đề để tôi có thể nghiên cứu và ứng dụng vào các dự án trong tương lai.

@@ -5,122 +5,116 @@ weight: 1
 chapter: false
 pre: " <b> 3.1. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
-# Bắt đầu với healthcare data lakes: Sử dụng microservices
+# Rox tăng tốc năng suất bán hàng với AI agents được hỗ trợ bởi Amazon Bedrock
 
-Các data lake có thể giúp các bệnh viện và cơ sở y tế chuyển dữ liệu thành những thông tin chi tiết về doanh nghiệp và duy trì hoạt động kinh doanh liên tục, đồng thời bảo vệ quyền riêng tư của bệnh nhân. **Data lake** là một kho lưu trữ tập trung, được quản lý và bảo mật để lưu trữ tất cả dữ liệu của bạn, cả ở dạng ban đầu và đã xử lý để phân tích. data lake cho phép bạn chia nhỏ các kho chứa dữ liệu và kết hợp các loại phân tích khác nhau để có được thông tin chi tiết và đưa ra các quyết định kinh doanh tốt hơn.
+*viết bởi Santhan Pamulapati, Andrew Brown, Santhosh Kumar Manavasi Lakshminarayana, Shriram Sridharan, và Taeuk Kang | vào ngày 1 tháng 10 năm 2025 | trong mục Amazon Bedrock, Amazon Machine Learning, Customer Solutions*
 
-Bài đăng trên blog này là một phần của loạt bài lớn hơn về việc bắt đầu cài đặt data lake dành cho lĩnh vực y tế. Trong bài đăng blog cuối cùng của tôi trong loạt bài, *“Bắt đầu với data lake dành cho lĩnh vực y tế: Đào sâu vào Amazon Cognito”*, tôi tập trung vào các chi tiết cụ thể của việc sử dụng Amazon Cognito và Attribute Based Access Control (ABAC) để xác thực và ủy quyền người dùng trong giải pháp data lake y tế. Trong blog này, tôi trình bày chi tiết cách giải pháp đã phát triển ở cấp độ cơ bản, bao gồm các quyết định thiết kế mà tôi đã đưa ra và các tính năng bổ sung được sử dụng. Bạn có thể truy cập các code samples cho giải pháp tại Git repo này để tham khảo.
+Bài viết này được đồng tác giả bởi Shriram Sridharan, Taeuk Kang, và Santhosh Kumar Manavasi Lakshminarayanan từ Rox.
 
----
+**Rox** đang xây dựng một hệ thống điều hành doanh thu cho kỷ nguyên ứng dụng AI.
 
-## Hướng dẫn kiến trúc
+Các đội ngũ kinh doanh hiện đại phụ thuộc vào nhiều dữ liệu hơn bao giờ hết, chẳng hạn như hệ thống quản lý quan hệ khách hàng (CRM), tự động hóa marketing, hệ thống tài chính, phiếu hỗ trợ, và dữ liệu sử dụng sản phẩm trực tiếp. Mặc dù mỗi hệ thống đều có vai trò riêng, nhưng khi kết hợp lại, chúng tạo silos làm chậm người bán và bỏ lỡ những điều sâu sắc chưa được khai thác.
 
-Thay đổi chính kể từ lần trình bày cuối cùng của kiến trúc tổng thể là việc tách dịch vụ đơn lẻ thành một tập hợp các dịch vụ nhỏ để cải thiện khả năng bảo trì và tính linh hoạt. Việc tích hợp một lượng lớn dữ liệu y tế khác nhau thường yêu cầu các trình kết nối chuyên biệt cho từng định dạng; bằng cách giữ chúng được đóng gói riêng biệt với microservices, chúng ta có thể thêm, xóa và sửa đổi từng trình kết nối mà không ảnh hưởng đến những kết nối khác. Các microservices được kết nối rời thông qua tin nhắn publish/subscribe tập trung trong cái mà tôi gọi là “pub/sub hub”.
+Rox giải quyết vấn đề này bằng cách cung cấp một **hệ thống điều hành doanh thu**: một lớp thống nhất giúp kết nối các tín hiệu này lại với nhau và trang bị AI agents để thực thi các luồng công việc go-to-market (GTM). Thay vì đối chiếu báo cáo hoặc cập nhật các trường dữ liệu, nhân viên bán hàng nhận thông tin theo thời gian thực và tự động hóa trong luồng công việc hằng ngày của họ.
 
-Giải pháp này đại diện cho những gì tôi sẽ coi là một lần lặp nước rút hợp lý khác từ last post của tôi. Phạm vi vẫn được giới hạn trong việc nhập và phân tích cú pháp đơn giản của các **HL7v2 messages** được định dạng theo **Quy tắc mã hóa 7 (ER7)** thông qua giao diện REST.
-
-**Kiến trúc giải pháp bây giờ như sau:**
-
-> *Hình 1. Kiến trúc tổng thể; những ô màu thể hiện những dịch vụ riêng biệt.*
+Hôm nay, chúng tôi vui mừng thông báo rằng Rox đã phát hành rộng rãi, với cơ sở hạ tầng Rox được xây dựng trên AWS và được cung cấp trên web, Slack, macOS, và iOS. Trong bài viết này, chúng tôi chia sẻ cách Rox tăng tốc năng suất bán hàng với AI agents được hỗ trợ bởi [Amazon Bedrock](https://aws.amazon.com/bedrock/).
 
 ---
 
-Mặc dù thuật ngữ *microservices* có một số sự mơ hồ cố hữu, một số đặc điểm là chung:  
-- Chúng nhỏ, tự chủ, kết hợp rời rạc  
-- Có thể tái sử dụng, giao tiếp thông qua giao diện được xác định rõ  
-- Chuyên biệt để giải quyết một việc  
-- Thường được triển khai trong **event-driven architecture**
+## Tổng quan giải pháp
 
-Khi xác định vị trí tạo ranh giới giữa các microservices, cần cân nhắc:  
-- **Nội tại**: công nghệ được sử dụng, hiệu suất, độ tin cậy, khả năng mở rộng  
-- **Bên ngoài**: chức năng phụ thuộc, tần suất thay đổi, khả năng tái sử dụng  
-- **Con người**: quyền sở hữu nhóm, quản lý *cognitive load*
+Như đã ghi trong *Rox is transforming revenue teams with AI-driven integration powered by AWS*, các đội ngũ GTM hiện đại cần nhiều hơn một cơ sở dữ liệu tĩnh. Dữ liệu doanh thu trải dài trên nhiều hệ thống, như là dữ liệu sử dụng sản phẩm, tài chính và hỗ trợ, và các đội ngũ cần một hệ thống có thể thống nhất bối cảnh và hành động dựa trên nó theo thời gian thực.
 
----
+Rox mang lại điều này thông qua một kiến trúc phân lớp trên AWS:
 
-## Lựa chọn công nghệ và phạm vi giao tiếp
+* **System of record** - Một đồ thị tri thức thống nhất, có quản trị sẽ kết hợp từ CRM, tài chính, hỗ trợ, đo lường sản phẩm từ xa, và dữ liệu web.
+* **Agent swarms** - Các agents thông minh, nhận biết bối cảnh khách hàng, có khả năng suy luận trên đồ thị và điều phối các luồng công việc đa bước như nghiên cứu, tiếp cận, quản lý cơ hội, và tạo đề xuất.
+* **Interfaces across surfaces** - Người bán hàng tương tác trong luồng công việc này ở nơi họ làm việc, như là web application, Slack, iOS, và macOS
 
-| Phạm vi giao tiếp                        | Các công nghệ / mô hình cần xem xét                                                        |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Trong một microservice                   | Amazon Simple Queue Service (Amazon SQS), AWS Step Functions                               |
-| Giữa các microservices trong một dịch vụ | AWS CloudFormation cross-stack references, Amazon Simple Notification Service (Amazon SNS) |
-| Giữa các dịch vụ                         | Amazon EventBridge, AWS Cloud Map, Amazon API Gateway                                      |
+Điều này chuyển đổi CRM từ một hệ thống ghi nhận thụ động thành một hệ thống hành động chủ động, để các đội ngũ có thể hành động dựa trên dữ liệu của họ ngay lập tức và một cách thông minh.
+
+Sơ đồ dưới đây minh họa kiến trúc giải pháp.
+
+![Solution Architecture](/images/blog1/architecture-diagram.png)
 
 ---
 
-## The pub/sub hub
+## Lợi ích và đặc điểm của ROX
 
-Việc sử dụng kiến trúc **hub-and-spoke** (hay message broker) hoạt động tốt với một số lượng nhỏ các microservices liên quan chặt chẽ.  
-- Mỗi microservice chỉ phụ thuộc vào *hub*  
-- Kết nối giữa các microservice chỉ giới hạn ở nội dung của message được xuất  
-- Giảm số lượng synchronous calls vì pub/sub là *push* không đồng bộ một chiều
+Hiện đã phát hành rộng rãi, Rox mở rộng từ việc intelligence đến thực thi toàn diện với **Command**, một conversational interface mới có thể điều phối các luồng công việc multi-agent. Command kết hợp với nhiều agents đặc biệt chạy song song.
 
-Nhược điểm: cần **phối hợp và giám sát** để tránh microservice xử lý nhầm message.
+Một yêu cầu (ví dụ, “chuẩn bị cho tôi về gia hạn ACME và soạn thảo follow-ups”) được mở rộng thành một kế hoạch:
+1.  Nghiên cứu tín hiệu sử dụng và hỗ trợ
+2.  Xác định các stakeholders còn thiếu
+3.  Soạn thảo nội dung tiếp cận
+4.  Cập nhật cơ hội
+5.  Tập hợp thành một bản đề xuất
 
----
+Một bước được hoàn thành thông qua tool calls trong hệ thống của bạn và phải tuân theo các phê duyệt từ guardrail. **Comprehensive safety architecture** của chúng tôi sử dụng một hệ thống guardrail đa lớp tinh vi làm tuyến phòng thủ đầu tiên chống lại yêu cầu không phù hợp, có hại hoặc độc hại. Các yêu cầu đầu vào trải qua quá trình phân tích nghiêm ngặt thông qua cơ chế lọc tiên tiến của chúng tôi trước khi đến inference layer. Giai đoạn tiền xử lý đánh giá nhiều khía cạnh về an toàn và sự thích hợp, như là legal compliance assessment và business relevance evaluation, để chắc chắn chỉ những yêu cầu hợp pháp, an toàn, và phù hợp bối cảnh mới được tiến hành đến model execution.
 
-## Core microservice
-
-Cung cấp dữ liệu nền tảng và lớp truyền thông, gồm:  
-- **Amazon S3** bucket cho dữ liệu  
-- **Amazon DynamoDB** cho danh mục dữ liệu  
-- **AWS Lambda** để ghi message vào data lake và danh mục  
-- **Amazon SNS** topic làm *hub*  
-- **Amazon S3** bucket cho artifacts như mã Lambda
-
-> Chỉ cho phép truy cập ghi gián tiếp vào data lake qua hàm Lambda → đảm bảo nhất quán.
+Command phân rã yêu cầu, định tuyến các bước đến đúng các agents, sắp xếp external tool invocations (CRM, calendar, enrichment, email), tổng hợp kết quả vào hệ thống bối cảnh, và trả về luồng mạch lạc sẵn sàng để sử dụng trên web, Slack, iOS, hoặc macOS. Mỗi đề nghị đều có thể giải thích (sources và traces), có thể đảo ngược (audit logs), và nhận biết chính sách (role-based access control, rate limits, required approvals).
 
 ---
 
-## Front door microservice
+## Amazon Bedrock cung cấp sức mạnh cho Rox như thế nào
 
-- Cung cấp API Gateway để tương tác REST bên ngoài  
-- Xác thực & ủy quyền dựa trên **OIDC** thông qua **Amazon Cognito**  
-- Cơ chế *deduplication* tự quản lý bằng DynamoDB thay vì SNS FIFO vì:
-  1. SNS deduplication TTL chỉ 5 phút
-  2. SNS FIFO yêu cầu SQS FIFO
-  3. Chủ động báo cho sender biết message là bản sao
+Command đòi hỏi một mô hình có khả năng suy luận qua nhiều bước, điều phối các công cụ, và thích ứng linh hoạt.
+
+Để đáp ứng các yêu cầu, Rox chọn **Anthropic’s Claude Sonnet 4 trên Amazon Bedrock**. Anthropic’s Claude Sonnet 4 đã liên tục chứng tỏ hiệu suất vượt trội về tool-calling và suy luận, cho phép các agent của Rox sắp xếp các luồng công việc như nghiên cứu tài khoản, làm giàu dữ liệu, tiếp cận, quản lý cơ hội, và tạo đề xuất một cách đáng tin cậy.
+
+Amazon Bedrock cung cấp nền tảng để triển khai Rox ở quy mô doanh nghiệp, mang lại bảo mật, linh hoạt để tích hợp với các models mới nhất, và khả năng mở rộng để xử lý hàng ngàn agents đồng thời một cách đáng tin cậy.
+
+### Các tính năng bổ sung
+
+Ngoài Command, Rox bao gồm những tính năng sau:
+
+| Tính năng | Mô tả |
+| :--- | :--- |
+| **Research** | Cung cấp nghiên cứu sâu về tài khoản và thị trường, dựa trên unified context (kế thừa từ private beta) |
+| **Meet** | Cho phép ghi âm, chuyển mã, tóm tắt và biến các cuộc họp thành hành động (kế thừa từ private beta) |
+| **Outreach** | Cung cấp tương tác với khách hàng tiềm năng được cá nhân hóa, đặt trong bối cảnh từ unified data (mới) |
+| **Revenue** | Giúp bạn theo dõi, cập nhật, và thúc đẩy pipelines trong luồng công việc (mới) |
+| **Auto-fill proposals** | Giúp bạn tập hợp các đề xuất được tùy chỉnh trong vài giây từ account context (mới) |
+| **Rox apps** | Cung cấp modular extensions để giúp bổ sung các luồng công việc được xây dựng có mục đích (dashboards, trackers) trực tiếp vào hệ thống (mới) |
+| **iOS app** | Cung cấp thông báo và chuẩn bị cuộc họp khi đang di chuyển (mới) |
+| **Mac app** | Mang lại khả năng chuyển mã các cuộc gọi và thêm chúng vào hệ thống bối cảnh (mới) |
+| **Regional expansion** | Hiện đã có mặt tại AWS Middle East (Bahrain) AWS Region, phù hợp với nhu cầu về data residency và sovereignty (mới) |
 
 ---
 
-## Staging ER7 microservice
+## Tác động ban đầu đến khách hàng
 
-- Lambda “trigger” đăng ký với pub/sub hub, lọc message theo attribute  
-- Step Functions Express Workflow để chuyển ER7 → JSON  
-- Hai Lambda:
-  1. Sửa format ER7 (newline, carriage return)
-  2. Parsing logic  
-- Kết quả hoặc lỗi được đẩy lại vào pub/sub hub
+Trong giai đoạn beta, các doanh nghiệp đã thấy được lợi ích ngay lập tức:
+* Năng suất của nhân viên đại diện cao hơn **50%**
+* Tốc độ bán hàng nhanh hơn **20%**
+* Doanh thu mỗi nhân viên đại diện tăng **gấp hai lần**
+
+Ví dụ, các khách hàng thực tế của Rox đã có thể tập trung sắc bén hơn vào các cơ hội có giá trị cao, thúc đẩy mức tăng **40 - 50%** trong giá bán trung bình. Các khách hàng khác đã giảm **90%** thời gian chuẩn bị của nhân viên và chốt giao dịch nhanh hơn, cộng thêm **15%** giao dịch trị giá sáu con số được khám phá thông qua những hiểu biết của Rox. Rox cũng rút ngắn ramp time cho nhân viên mới, với khách hàng báo cáo ramp time nhanh hơn **50%** khi sử dụng Rox.
 
 ---
 
-## Tính năng mới trong giải pháp
+## Thử Rox ngay hôm nay
 
-### 1. AWS CloudFormation cross-stack references
-Ví dụ *outputs* trong core microservice:
-```yaml
-Outputs:
-  Bucket:
-    Value: !Ref Bucket
-    Export:
-      Name: !Sub ${AWS::StackName}-Bucket
-  ArtifactBucket:
-    Value: !Ref ArtifactBucket
-    Export:
-      Name: !Sub ${AWS::StackName}-ArtifactBucket
-  Topic:
-    Value: !Ref Topic
-    Export:
-      Name: !Sub ${AWS::StackName}-Topic
-  Catalog:
-    Value: !Ref Catalog
-    Export:
-      Name: !Sub ${AWS::StackName}-Catalog
-  CatalogArn:
-    Value: !GetAtt Catalog.Arn
-    Export:
-      Name: !Sub ${AWS::StackName}-CatalogArn
+Tầm nhìn của chúng tôi là các đội ngũ kinh doanh sẽ vận hành với một agent swarm luôn hoạt động, liên tục nghiên cứu tài khoản, tương tác với stakeholders, và thúc đẩy pipeline tiến lên.
+
+Rox hiện đã phát hành rộng rãi. Hãy bắt đầu tại [rox.com](https://rox.com) hoặc truy cập [AWS Marketplace](https://aws.amazon.com/marketplace). Cùng với AWS, chúng tôi sẽ tiếp tục xây dựng hệ thống điều hành dựa trên AI cho các đội ngũ kinh doanh hiện đại.
+
+---
+
+### Về các tác giả
+
+![Shriram Sridharan](/images/blog1/shriram-sridharan.png)
+**Shriram Sridharan** là Co-Founder/Engineering Head của Rox, một công ty AI được Sequoia hậu thuẫn. Trước Rox, Shriram đã lãnh đạo data infrastructure team tại Confluent, chịu trách nhiệm làm cho Kafka nhanh hơn và rẻ hơn trên các đám mây. Trước đó, anh là một trong những kỹ sư đời đầu tại Amazon Aurora (pre-launch) tái định hình cơ sở dữ liệu cho đám mây. Aurora là Dịch vụ AWS phát triển nhanh nhất và đã nhận được giải thưởng hệ thống SIGMOD năm 2019.
+
+![Taeuk Kang](/images/blog1/taeuk-kang.png)
+**Taeuk Kang** là Founding Engineer tại Rox, làm việc trong lĩnh vực nghiên cứu và kỹ thuật AI. Anh học Khoa học Máy tính tại Stanford. Trước Rox, anh đã xây dựng các large language model agents và retrieval-augmented generation systems tại X (trước đây là Twitter) và thiết kế distributed LLM infrastructure cung cấp năng lượng cho các tính năng cốt lõi của sản phẩm và Trust & Safety, cải thiện sức khỏe tổng thể của nền tảng. Trước đó tại Stripe, anh đã phát triển các streaming and batch data processing pipelines hiệu suất cao tích hợp Apache Flink, Spark, Kafka, và AWS SQS.
+
+![Santhosh Kumar Manavasi Lakshminarayanan](/images/blog1/santhosh-kumar.png)
+**Santhosh Kumar Manavasi Lakshminarayanan** lãnh đạo Platform tại Rox. Trước Rox, anh là Director of Engineering tại StreamSets, được IBM mua lại, lãnh đạo StreamSets Cloud Platform giúp các doanh nghiệp lớn vận hành data pipeline của họ ở quy mô lớn trên các nhà cung cấp đám mây hiện đại. Trước StreamSets, anh là senior engineer tại Platform Metadata team tại Informatica.
+
+![Andrew Brown](/images/blog1/andrew-brown.png)
+**Andrew Brown** là Account Executive cho AI Startups tại Amazon Web Services (AWS) ở San Francisco, CA. Với nền tảng vững chắc về cloud computing và tập trung vào việc hỗ trợ các startup, Andrew chuyên giúp các công ty mở rộng quy mô hoạt động của họ bằng cách sử dụng các công nghệ của AWS.
+
+![Santhan Pamulapati](/images/blog1/santhan-pamulapati.png)
+**Santhan Pamulapati** là Sr. Solutions Architect cho GenAI startups tại AWS, với chuyên môn sâu về thiết kế và xây dựng các giải pháp có khả năng mở rộng nhằm thúc đẩy tăng trưởng của khách hàng. Anh có nền tảng vững chắc trong việc xây dựng các hệ thống HPC tận dụng các dịch vụ của AWS và đã làm việc với các khách hàng chiến lược để giải quyết các thách thức kinh doanh.

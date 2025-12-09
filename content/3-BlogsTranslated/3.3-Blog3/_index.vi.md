@@ -6,122 +6,137 @@ chapter: false
 pre: " <b> 3.3. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+# Cách xuất dữ liệu ra Amazon S3 Tables bằng AWS Step Function Distributed Map
 
-# Bắt đầu với healthcare data lakes: Sử dụng microservices
+*bởi Chetan Makvana và Aidan Eglin | vào ngày 01 THÁNG 10 NĂM 2025 | trong mục Advanced (300), Amazon S3 Tables, AWS Step Functions, Serverless, Technical How-to*
 
-Các data lake có thể giúp các bệnh viện và cơ sở y tế chuyển dữ liệu thành những thông tin chi tiết về doanh nghiệp và duy trì hoạt động kinh doanh liên tục, đồng thời bảo vệ quyền riêng tư của bệnh nhân. **Data lake** là một kho lưu trữ tập trung, được quản lý và bảo mật để lưu trữ tất cả dữ liệu của bạn, cả ở dạng ban đầu và đã xử lý để phân tích. data lake cho phép bạn chia nhỏ các kho chứa dữ liệu và kết hợp các loại phân tích khác nhau để có được thông tin chi tiết và đưa ra các quyết định kinh doanh tốt hơn.
+Các công ty chạy các **serverless workloads** thường cần thực hiện các hoạt động **extract, transform, and load (ETL)** trên các tệp dữ liệu được lưu trữ trong các bucket của **Amazon Simple Storage Service (Amazon S3)**. Mặc dù các phương pháp truyền thống như **AWS Lambda trigger for Amazon S3** hoặc **Amazon S3 Event Notifications** có thể xử lý các hoạt động này, chúng có thể không đáp ứng đủ khi các luồng công việc đòi hỏi khả năng hiển thị, kiểm soát nâng cao hoặc sự can thiệp của con người. Ví dụ, một số quy trình có thể cần xem xét thủ công các bản ghi bị lỗi hoặc phê duyệt rõ ràng trước khi chuyển sang các giai đoạn tiếp theo. Các giải pháp tự xây dựng của khách hàng cho những vấn đề này có thể phức tạp và dễ bị lỗi.
 
-Bài đăng trên blog này là một phần của loạt bài lớn hơn về việc bắt đầu cài đặt data lake dành cho lĩnh vực y tế. Trong bài đăng blog cuối cùng của tôi trong loạt bài, *“Bắt đầu với data lake dành cho lĩnh vực y tế: Đào sâu vào Amazon Cognito”*, tôi tập trung vào các chi tiết cụ thể của việc sử dụng Amazon Cognito và Attribute Based Access Control (ABAC) để xác thực và ủy quyền người dùng trong giải pháp data lake y tế. Trong blog này, tôi trình bày chi tiết cách giải pháp đã phát triển ở cấp độ cơ bản, bao gồm các quyết định thiết kế mà tôi đã đưa ra và các tính năng bổ sung được sử dụng. Bạn có thể truy cập các code samples cho giải pháp tại Git repo này để tham khảo.
+**AWS Step Functions** giải quyết những thách thức này bằng cách cung cấp các khả năng quản lý và giám sát luồng công việc được tích hợp sẵn. Tính năng **Step Functions Distributed Map** được thiết kế cho các luồng công việc xử lý dữ liệu song song, **high-throughput** để các công ty có thể xử lý các công việc ETL phức tạp, **fan-out processing**, và trực quan hóa dữ liệu ở quy mô lớn. Distributed Map xử lý mỗi mục trong bộ dữ liệu như một **child workflow** độc lập, xử lý hàng triệu bản ghi trong khi vẫn duy trì các cơ chế kiểm soát đồng thời, khả năng chịu lỗi, và theo dõi tiến trình được tích hợp sẵn. Dữ liệu đã xử lý có thể được xuất liền mạch đến nhiều đích khác nhau, bao gồm cả **Amazon S3 Tables** với sự hỗ trợ của **Apache Iceberg**.
 
----
+Trong bài viết này, chúng tôi chỉ ra cách dùng Step Functions Distributed Map để xử lý các Amazon S3 objects và xuất kết quả ra Amazon S3 Tables, tạo một **data processing pipeline** có khả năng mở rộng và dễ bảo trì.
 
-## Hướng dẫn kiến trúc
-
-Thay đổi chính kể từ lần trình bày cuối cùng của kiến trúc tổng thể là việc tách dịch vụ đơn lẻ thành một tập hợp các dịch vụ nhỏ để cải thiện khả năng bảo trì và tính linh hoạt. Việc tích hợp một lượng lớn dữ liệu y tế khác nhau thường yêu cầu các trình kết nối chuyên biệt cho từng định dạng; bằng cách giữ chúng được đóng gói riêng biệt với microservices, chúng ta có thể thêm, xóa và sửa đổi từng trình kết nối mà không ảnh hưởng đến những kết nối khác. Các microservices được kết nối rời thông qua tin nhắn publish/subscribe tập trung trong cái mà tôi gọi là “pub/sub hub”.
-
-Giải pháp này đại diện cho những gì tôi sẽ coi là một lần lặp nước rút hợp lý khác từ last post của tôi. Phạm vi vẫn được giới hạn trong việc nhập và phân tích cú pháp đơn giản của các **HL7v2 messages** được định dạng theo **Quy tắc mã hóa 7 (ER7)** thông qua giao diện REST.
-
-**Kiến trúc giải pháp bây giờ như sau:**
-
-> *Hình 1. Kiến trúc tổng thể; những ô màu thể hiện những dịch vụ riêng biệt.*
+Xem **GitHub repository** đi kèm để biết hướng dẫn chi tiết về việc triển khai giải pháp này cũng như mã nguồn mẫu.
 
 ---
 
-Mặc dù thuật ngữ *microservices* có một số sự mơ hồ cố hữu, một số đặc điểm là chung:  
-- Chúng nhỏ, tự chủ, kết hợp rời rạc  
-- Có thể tái sử dụng, giao tiếp thông qua giao diện được xác định rõ  
-- Chuyên biệt để giải quyết một việc  
-- Thường được triển khai trong **event-driven architecture**
+## Tổng quan giải pháp
 
-Khi xác định vị trí tạo ranh giới giữa các microservices, cần cân nhắc:  
-- **Nội tại**: công nghệ được sử dụng, hiệu suất, độ tin cậy, khả năng mở rộng  
-- **Bên ngoài**: chức năng phụ thuộc, tần suất thay đổi, khả năng tái sử dụng  
-- **Con người**: quyền sở hữu nhóm, quản lý *cognitive load*
+Hãy xem xét một công ty điện tử tiêu dùng thường xuyên tham gia các triển lãm thương mại và hội nghị ngành. Trong các sự kiện này, những người tham dự quan tâm sẽ điền vào các biểu mẫu đăng ký bằng giấy để yêu cầu demo sản phẩm, nhận bản tin, hoặc tham gia các chương trình truy cập sớm. Sau sự kiện, đội ngũ của công ty quét hàng trăm nghìn biểu mẫu này và tải chúng lên Amazon S3. Thay vì xem xét thủ công từng biểu mẫu, công ty muốn tự động hóa việc trích xuất các chi tiết chính của khách hàng như tên, địa chỉ email, địa chỉ gửi thư, và lĩnh vực quan tâm. Họ muốn lưu trữ dữ liệu có cấu trúc này trong S3 Tables với định dạng Apache Iceberg để phục vụ cho việc phân tích và nhắm mục tiêu các chiến dịch marketing ở các công đoạn sau.
 
----
+Hãy xem cách giải pháp trong bài viết này sử dụng Distributed Map để xử lý các tệp PDF song song, trích xuất dữ liệu bằng **Amazon Textract**, và ghi trực tiếp đầu ra đã được làm sạch vào S3 Tables. Kết quả là một quy trình tiếp nhận dữ liệu sau sự kiện có khả năng mở rộng và hoàn toàn serverless, như được hiển thị trong hình sau.
 
-## Lựa chọn công nghệ và phạm vi giao tiếp
+![Tổng quan giải pháp](/images/blog3/solution-overview.png)
 
-| Phạm vi giao tiếp                        | Các công nghệ / mô hình cần xem xét                                                        |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Trong một microservice                   | Amazon Simple Queue Service (Amazon SQS), AWS Step Functions                               |
-| Giữa các microservices trong một dịch vụ | AWS CloudFormation cross-stack references, Amazon Simple Notification Service (Amazon SNS) |
-| Giữa các dịch vụ                         | Amazon EventBridge, AWS Cloud Map, Amazon API Gateway                                      |
+Luồng công việc xử lý dữ liệu như được hiển thị trong sơ đồ trên bao gồm các bước sau:
 
----
+1.  Người dùng tải các biểu mẫu quan tâm của khách hàng dưới dạng tệp PDF đã quét vào một bucket Amazon S3.
+2.  Một quy tắc **Amazon EventBridge Scheduler** được kích hoạt theo các khoảng thời gian đều đặn, khởi tạo một Step Functions workflow.
+3.  Lần thực thi workflow này sẽ kích hoạt một trạng thái Step Functions Distributed Map, liệt kê tất cả các tệp PDF đã được tải lên Amazon S3 kể từ lần chạy trước.
+4.  Distributed Map duyệt qua danh sách các đối tượng và chuyển mỗi **object’s metadata** (bucket, key, size, entity tag [ETag]) cho một lần thực thi **child workflow**.
+5.  Đối với mỗi object, child workflow gọi Amazon Textract với bucket và key được cung cấp để trích xuất **raw text** và các trường liên quan (tên, địa chỉ email, địa chỉ gửi thư, lĩnh vực quan tâm) từ tệp PDF.
+6.  Child workflow gửi dữ liệu đã trích xuất đến **Amazon Data Firehose**, được cấu hình để chuyển tiếp dữ liệu đến S3 Tables.
+7.  Firehose gom nhóm dữ liệu đến từ child workflow và ghi nó vào S3 Tables theo một khoảng thời gian được định cấu hình sẵn mà bạn chọn.
 
-## The pub/sub hub
-
-Việc sử dụng kiến trúc **hub-and-spoke** (hay message broker) hoạt động tốt với một số lượng nhỏ các microservices liên quan chặt chẽ.  
-- Mỗi microservice chỉ phụ thuộc vào *hub*  
-- Kết nối giữa các microservice chỉ giới hạn ở nội dung của message được xuất  
-- Giảm số lượng synchronous calls vì pub/sub là *push* không đồng bộ một chiều
-
-Nhược điểm: cần **phối hợp và giám sát** để tránh microservice xử lý nhầm message.
+Với dữ liệu hiện đã có cấu trúc và có thể truy cập trong S3 Tables, người dùng có thể dễ dàng phân tích chúng bằng các truy vấn SQL tiêu chuẩn với **Amazon Athena** hoặc các công cụ **business intelligence** như **Amazon QuickSight**.
 
 ---
 
-## Core microservice
+## Luồng công việc xử lý dữ liệu
 
-Cung cấp dữ liệu nền tảng và lớp truyền thông, gồm:  
-- **Amazon S3** bucket cho dữ liệu  
-- **Amazon DynamoDB** cho danh mục dữ liệu  
-- **AWS Lambda** để ghi message vào data lake và danh mục  
-- **Amazon SNS** topic làm *hub*  
-- **Amazon S3** bucket cho artifacts như mã Lambda
+EventBridge Scheduler khởi động các Step Functions workflows mới theo các khoảng thời gian đều đặn. Mốc thời gian cho lịch trình này là linh hoạt. Tuy nhiên, khi thiết lập lịch trình của bạn, hãy đảm bảo tần suất phù hợp với khoảng thời gian mà **state machine** của bạn được cấu hình để tìm kiếm các tệp PDF. Ví dụ, nếu state machine của bạn kiểm tra các tệp PDF từ tuần trước, bạn sẽ muốn lên lịch cho nó chạy hàng tuần. Step Functions workflow sau đó thực hiện ba bước sau (lưu ý rằng đây là các bước 4, 5, 6, và 7 trong sơ đồ luồng công việc ở trên):
 
-> Chỉ cho phép truy cập ghi gián tiếp vào data lake qua hàm Lambda → đảm bảo nhất quán.
+1.  Trích xuất dữ liệu người dùng liên quan từ các tệp PDF.
+2.  Gửi dữ liệu người dùng đã trích xuất đến Firehose.
+3.  Ghi dữ liệu vào S3 Tables ở định dạng bảng Apache Iceberg.
 
----
+Sơ đồ sau minh họa luồng công việc này.
 
-## Front door microservice
+![Sơ đồ luồng công việc](/images/blog3/workflow-diagram.png)
 
-- Cung cấp API Gateway để tương tác REST bên ngoài  
-- Xác thực & ủy quyền dựa trên **OIDC** thông qua **Amazon Cognito**  
-- Cơ chế *deduplication* tự quản lý bằng DynamoDB thay vì SNS FIFO vì:
-  1. SNS deduplication TTL chỉ 5 phút
-  2. SNS FIFO yêu cầu SQS FIFO
-  3. Chủ động báo cho sender biết message là bản sao
+Hãy xem xét chi tiết hơn từng bước của luồng công việc trên.
 
----
+### Trích xuất dữ liệu người dùng liên quan từ tài liệu PDF
 
-## Staging ER7 microservice
+Step Functions sử dụng Distributed Map để xử lý các tệp PDF đồng thời trong các **child workflows** song song. Nó chấp nhận đầu vào từ các tệp JSON, JSONL, CSV, Parquet, các tệp **Amazon S3 manifest** được lưu trữ trong Amazon S3 (dùng để chỉ định các tệp cụ thể cần xử lý), hoặc một **Amazon S3 bucket prefix** (cho phép duyệt qua metadata của tất cả các đối tượng dưới tiền tố đó). Step Functions tự động xử lý việc song song hóa bằng cách chia nhỏ bộ dữ liệu và chạy các child workflows cho mỗi mục, với trường **ItemBatcher** cho phép nhóm nhiều tệp PDF vào một lần thực thi child workflow duy nhất (ví dụ: 10 tệp PDF mỗi batch) để tối ưu hóa hiệu suất và chi phí.
 
-- Lambda “trigger” đăng ký với pub/sub hub, lọc message theo attribute  
-- Step Functions Express Workflow để chuyển ER7 → JSON  
-- Hai Lambda:
-  1. Sửa format ER7 (newline, carriage return)
-  2. Parsing logic  
-- Kết quả hoặc lỗi được đẩy lại vào pub/sub hub
+Ảnh chụp màn hình sau từ Step Functions console cho thấy cấu hình cho Distributed Map. Ví dụ, chúng tôi đã cấu hình Distributed Map để xử lý 10 tệp PDF quan tâm của khách hàng trong một child workflow duy nhất.
 
----
+![Step Functions Console](/images/blog3/step-functions-console.png)
 
-## Tính năng mới trong giải pháp
+Hình ảnh sau đây cho thấy một ví dụ về các tệp PDF được quét này, bao gồm thông tin khách hàng mà giải pháp của bài viết này xử lý.
 
-### 1. AWS CloudFormation cross-stack references
-Ví dụ *outputs* trong core microservice:
-```yaml
-Outputs:
-  Bucket:
-    Value: !Ref Bucket
-    Export:
-      Name: !Sub ${AWS::StackName}-Bucket
-  ArtifactBucket:
-    Value: !Ref ArtifactBucket
-    Export:
-      Name: !Sub ${AWS::StackName}-ArtifactBucket
-  Topic:
-    Value: !Ref Topic
-    Export:
-      Name: !Sub ${AWS::StackName}-Topic
-  Catalog:
-    Value: !Ref Catalog
-    Export:
-      Name: !Sub ${AWS::StackName}-Catalog
-  CatalogArn:
-    Value: !GetAtt Catalog.Arn
-    Export:
-      Name: !Sub ${AWS::StackName}-CatalogArn
+![Ví dụ PDF được quét](/images/blog3/scanned-pdf-example.png)
+
+Mỗi child workflow sau đó gọi **Amazon Textract AnalyzeDocument API** với các truy vấn cụ thể để trích xuất thông tin khách hàng.
+
+```json
+{
+  "Document": {
+    "S3Object": {
+      "Bucket": "<input PDFs bucket>",
+      "Name": "{% $states.input.Key %}"
+    }
+  },
+  "FeatureTypes": [
+    "QUERIES"
+  ],
+  "QueriesConfig": {
+    "Queries": [
+      {
+        "Alias": "full_name",
+        "Text": "What is the customer's name?"
+      },
+      {
+        "Alias": "phone_number",
+        "Text": "What is the customer’s phone number?"
+      },
+      {
+        "Alias": "mailing_address",
+        "Text": "What is the customer’s mailing address?"
+      },
+      {
+        "Alias": "interest",
+        "Text": "What is the customer’s interest?"
+      }
+    ]
+  }
+}
+```
+API phân tích mỗi tệp PDF được quét và trả về một cấu trúc JSON chứa thông tin khách hàng đã được trích xuất.
+
+### Gửi dữ liệu người dùng đã trích xuất đến Firehose
+Child workflow sau đó sử dụng một Firehose PutRecordBatch API action với service integrations để đưa thông tin khách hàng đã trích xuất vào hàng đợi để xử lý thêm. Yêu cầu hành động PutRecordBatch bao gồm tên luồng Firehose và các bản ghi dữ liệu. Các bản ghi dữ liệu bao gồm một blob dữ liệu từ bước 1 chứa thông tin khách hàng đã trích xuất, như trong ví dụ sau.
+
+```json
+{
+  "DeliveryStreamName": "put_raw_form_data_100",
+  "Records": [
+    {
+      "Data": "{\"full_name\":\"Anthony Ayala\",\"phone_number\":\"001-384-925-0701\",\"mailing_address\":\"38548 Joshua Wall Suite 974, East Heatherfort, OH 32669\",\"interest\":\"Fitness Trackers\",\"processed_date\":\"2025-05-01\"}"
+    },
+    {
+      "Data": "{\"full_name\":\"Becky Williams\",\"phone_number\":\"+1-283-499-2466\",\"mailing_address\":\"227 King Forge Suite 241, East Nathanland, PR 05687\",\"interest\":\"Al Assistants\",\"processed_date\":\"2025-05-01\"}"
+    }
+  ]
+}
+```
+### Ghi dữ liệu vào S3 Tables ở định dạng bảng Apache Iceberg
+Firehose quản lý hiệu quả việc data buffering, chuyển đổi định dạng, và phân phối đáng tin cậy đến nhiều đích khác nhau, bao gồm Apache Iceberg, raw files trong Amazon S3, Amazon OpenSearch Service, hoặc any of the other supported destinations. Các bảng Apache Iceberg có thể được tự quản lý trong Amazon S3 hoặc được lưu trữ trong S3 Tables. Mặc dù các bảng Iceberg tự quản lý đòi hỏi tối ưu hóa thủ công—chẳng hạn như compaction và snapshot expiration—S3 Tables tự động tối ưu hóa lưu trữ cho các khối lượng công việc phân tích quy mô lớn, cải thiện hiệu suất truy vấn và giảm chi phí lưu trữ.
+
+Firehose đơn giản hóa quá trình streaming dữ liệu bằng cách cấu hình một luồng phân phối, chọn một nguồn dữ liệu, và đặt một bảng Iceberg làm đích. Sau khi bạn đã thiết lập xong, luồng Firehose đã sẵn sàng để phân phối dữ liệu. Dữ liệu được phân phối có thể được truy vấn từ S3 Tables bằng cách sử dụng Athena, như được hiển thị trong ảnh chụp màn hình sau của giao diện điều khiển Athena.
+
+![Query](/images/blog3/query.png)
+
+Kết quả truy vấn bao gồm tất cả dữ liệu khách hàng đã được xử lý từ các tệp PDF, như được hiển thị trong ảnh chụp màn hình sau.
+
+![Result](/images/blog3/result.png)
+
+Sự tích hợp này thể hiện một giải pháp mạnh mẽ, không cần mã nguồn để chuyển đổi các biểu mẫu raw PDF thành dữ liệu được làm giàu, có thể truy vấn trong một bảng Iceberg. Bạn có thể sử dụng những dữ liệu này để phân tích sâu hơn.
+
+### Kết luận
+Trong bài viết này, chúng tôi đã chỉ ra cách xây dựng một giải pháp serverless, có khả năng mở rộng để xử lý tài liệu PDF và xuất dữ liệu đã trích xuất ra S3 Tables bằng cách sử dụng Step Functions Distributed Map. Kiến trúc này mang lại một số lợi ích chính như độ tin cậy, hiệu quả về chi phí, khả năng hiển thị, và khả năng bảo trì. Bằng cách tận dụng các dịch vụ của AWS như Step Functions, Amazon Textract, Firehose, và S3 Tables, các công ty có thể tự động hóa các luồng công việc xử lý tài liệu của mình đồng thời đảm bảo hiệu suất tối ưu và hoạt động xuất sắc. Giải pháp này có thể được điều chỉnh cho nhiều trường hợp sử dụng khác ngoài các biểu mẫu quan tâm của khách hàng, chẳng hạn như xử lý hóa đơn, biểu mẫu ứng tuyển, hoặc bất kỳ kịch bản nào đòi hỏi trích xuất dữ liệu có cấu trúc từ tài liệu ở quy mô lớn.
+
+Mặc dù ví dụ này tập trung vào việc xử lý dữ liệu PDF và ghi vào S3 Tables, Distributed Map có thể xử lý nhiều nguồn đầu vào khác nhau bao gồm các tệp JSON, JSONL, CSV, và Parquet trong Amazon S3; các mục trong bảng Amazon DynamoDB; kết quả truy vấn Athena; và tất cả các API List của AWS có phân trang. Tương tự, thông qua Step Functions service integrations, bạn có thể ghi kết quả ra nhiều đích đến như các bảng DynamoDB tables bằng cách sử dụng tích hợp dịch vụ PutItem.
+
+Để bắt đầu với giải pháp này, hãy xem GitHub repository đi kèm để biết hướng dẫn triển khai và mã nguồn mẫu.

@@ -5,122 +5,125 @@ weight: 1
 chapter: false
 pre: " <b> 3.2. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-# Getting Started with Healthcare Data Lakes: Using Microservices
 
-Data lakes can help hospitals and healthcare facilities turn data into business insights, maintain business continuity, and protect patient privacy. A **data lake** is a centralized, managed, and secure repository to store all your data, both in its raw and processed forms for analysis. Data lakes allow you to break down data silos and combine different types of analytics to gain insights and make better business decisions.
+# How Laravel Nightwatch handles billions of observability events in real time with Amazon MSK and ClickHouse Cloud
 
-This blog post is part of a larger series on getting started with setting up a healthcare data lake. In my final post of the series, *“Getting Started with Healthcare Data Lakes: Diving into Amazon Cognito”*, I focused on the specifics of using Amazon Cognito and Attribute Based Access Control (ABAC) to authenticate and authorize users in the healthcare data lake solution. In this blog, I detail how the solution evolved at a foundational level, including the design decisions I made and the additional features used. You can access the code samples for the solution in this Git repo for reference.
+*by Masudur Rahaman Sayem, James Carpenter, Jess Archer, and Johnny Mirza on 01 OCT 2025 in Amazon Managed Streaming for Apache Kafka (Amazon MSK), Analytics, Expert (400), Technical How-to*
 
----
+**Laravel**, one of the world’s most popular web frameworks, launched its first-party observability platform, **Laravel Nightwatch**, to provide developers with real-time insights into application performance. Built entirely on AWS managed services and **ClickHouse Cloud**, the service already processes over **one billion events per day** while maintaining sub-second query latency, giving developers instant visibility into the health of their applications.
 
-## Architecture Guidance
-
-The main change since the last presentation of the overall architecture is the decomposition of a single service into a set of smaller services to improve maintainability and flexibility. Integrating a large volume of diverse healthcare data often requires specialized connectors for each format; by keeping them encapsulated separately as microservices, we can add, remove, and modify each connector without affecting the others. The microservices are loosely coupled via publish/subscribe messaging centered in what I call the “pub/sub hub.”
-
-This solution represents what I would consider another reasonable sprint iteration from my last post. The scope is still limited to the ingestion and basic parsing of **HL7v2 messages** formatted in **Encoding Rules 7 (ER7)** through a REST interface.
-
-**The solution architecture is now as follows:**
-
-> *Figure 1. Overall architecture; colored boxes represent distinct services.*
+By combining **Amazon Managed Streaming for Apache Kafka (Amazon MSK)** with ClickHouse Cloud and **AWS Lambda**, Laravel Nightwatch delivers high-volume, low-latency monitoring at scale, while maintaining the simplicity and developer experience Laravel is known for.
 
 ---
 
-While the term *microservices* has some inherent ambiguity, certain traits are common:  
-- Small, autonomous, loosely coupled  
-- Reusable, communicating through well-defined interfaces  
-- Specialized to do one thing well  
-- Often implemented in an **event-driven architecture**
+## The challenge: Delivering real-time monitoring for a global developer community
 
-When determining where to draw boundaries between microservices, consider:  
-- **Intrinsic**: technology used, performance, reliability, scalability  
-- **Extrinsic**: dependent functionality, rate of change, reusability  
-- **Human**: team ownership, managing *cognitive load*
+The Laravel framework powers millions of applications worldwide, serving billions of requests each month. Each request can generate potentially hundreds of observability events, such as database queries, queued jobs, cache lookups, emails, notifications, and exceptions. For Nightwatch’s launch, Laravel anticipated instant adoption from its global community, with tens of thousands of applications sending events around the clock from day one.
 
----
+Laravel Nightwatch needed an architecture that could:
+* Ingest millions of JSON events per second from customer applications reliably.
+* Provide sub-second analytical queries for real-time dashboards.
+* Scale horizontally to handle unpredictable traffic spikes.
+* Deliver all of this in a cost-effective, low-maintenance manner.
 
-## Technology Choices and Communication Scope
-
-| Communication scope                       | Technologies / patterns to consider                                                        |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Within a single microservice              | Amazon Simple Queue Service (Amazon SQS), AWS Step Functions                               |
-| Between microservices in a single service | AWS CloudFormation cross-stack references, Amazon Simple Notification Service (Amazon SNS) |
-| Between services                          | Amazon EventBridge, AWS Cloud Map, Amazon API Gateway                                      |
+The challenge was to process data on a global scale and provide deep insights into application health without compromising on a straightforward setup experience for developers.
 
 ---
 
-## The Pub/Sub Hub
+## The solution: A decoupled streaming and analytics pipeline
 
-Using a **hub-and-spoke** architecture (or message broker) works well with a small number of tightly related microservices.  
-- Each microservice depends only on the *hub*  
-- Inter-microservice connections are limited to the contents of the published message  
-- Reduces the number of synchronous calls since pub/sub is a one-way asynchronous *push*
+Laravel Nightwatch implemented a **dual-database**, **streaming-first architecture**, shown in the preceding figure, that separates transactional and analytical workloads.
 
-Drawback: **coordination and monitoring** are needed to avoid microservices processing the wrong message.
+* **Transactional workloads** – user accounts, organization settings, billing, and similar workloads run on **Amazon RDS** for PostgreSQL.
+* **Analytical workloads** – telemetry events, metrics, query logs, and request traces are handled by **ClickHouse Cloud**.
 
----
+### Key components
 
-## Core Microservice
+The key components of the solution include the following:
 
-Provides foundational data and communication layer, including:  
-- **Amazon S3** bucket for data  
-- **Amazon DynamoDB** for data catalog  
-- **AWS Lambda** to write messages into the data lake and catalog  
-- **Amazon SNS** topic as the *hub*  
-- **Amazon S3** bucket for artifacts such as Lambda code
+#### Ingestion layer
+* **Amazon API Gateway** receives telemetry from Laravel agents embedded in customer applications.
+* **Lambda** validates and enriches events. Validated and enriched events are published to Amazon MSK, partitioned for scalability.
 
-> Only allow indirect write access to the data lake through a Lambda function → ensures consistency.
+#### Streaming to analytics
+* **ClickPipes** in ClickHouse Cloud subscribe directly to MSK topics, reducing the need to build and manage extract, transform, and load (ETL) pipelines.
+* **Materialized views** in ClickHouse pre-aggregate and transform raw JSON into query-ready formats.
 
----
+#### Dashboards and delivery
+* The Nightwatch dashboard, built with Laravel, Inertia, and React, runs on **AWS Fargate for Amazon ECS**.
+* **Amazon ElastiCache for Redis** accelerates session and cache lookups.
+* **Cloudflare CDN** provides low-latency delivery to global users.
 
-## Front Door Microservice
-
-- Provides an API Gateway for external REST interaction  
-- Authentication & authorization based on **OIDC** via **Amazon Cognito**  
-- Self-managed *deduplication* mechanism using DynamoDB instead of SNS FIFO because:  
-  1. SNS deduplication TTL is only 5 minutes  
-  2. SNS FIFO requires SQS FIFO  
-  3. Ability to proactively notify the sender that the message is a duplicate  
+![Architecture Diagram](/images/blog2/architecture-diagram.png)
 
 ---
 
-## Staging ER7 Microservice
+## Why Amazon MSK and ClickHouse Cloud?
 
-- Lambda “trigger” subscribed to the pub/sub hub, filtering messages by attribute  
-- Step Functions Express Workflow to convert ER7 → JSON  
-- Two Lambdas:  
-  1. Fix ER7 formatting (newline, carriage return)  
-  2. Parsing logic  
-- Result or error is pushed back into the pub/sub hub  
+Nightwatch requires a durable, horizontally scalable, and low maintenance streaming backbone.
+
+With **Amazon MSK Express brokers**, we have achieved over **1 million events per second** during load testing, benefiting from low-latency, elastic scaling, and simplified operations. MSK Express brokers require no storage sizing or provisioning, scale up to 20 times faster, and recover 90% quicker than standard Apache Kafka brokers—all while enforcing best-practice defaults and client quotas for reliable performance. Its seamless integration with other AWS services—such as Lambda, **Amazon Simple Storage Service (Amazon S3)**, and **Amazon CloudWatch**—made it straightforward to build a resilient, end-to-end streaming architecture.
+
+To ingest and transform these events in real time, Nightwatch uses ClickHouse Cloud and its managed integration platform, **ClickPipes**. ClickHouse Cloud excels at analytical workloads by delivering up to **100 times faster** query performance for analytics compared to traditional row-based databases. Its advanced compression algorithms provide up to **90% storage savings**, significantly reducing infrastructure costs while maintaining high performance. With its columnar architecture and optimized execution engine, ClickHouse Cloud can query billions of rows in under 1 second, enabling Laravel Nightwatch to serve real-time dashboards and analytics at global scale.
+
+By integrating Amazon MSK and ClickHouse using ClickPipes, Laravel also reduced the operational burden of building and managing ETL pipelines, reducing latency and complexity.
 
 ---
 
-## New Features in the Solution
+## Overcoming challenges
 
-### 1. AWS CloudFormation Cross-Stack References
-Example *outputs* in the core microservice:
-```yaml
-Outputs:
-  Bucket:
-    Value: !Ref Bucket
-    Export:
-      Name: !Sub ${AWS::StackName}-Bucket
-  ArtifactBucket:
-    Value: !Ref ArtifactBucket
-    Export:
-      Name: !Sub ${AWS::StackName}-ArtifactBucket
-  Topic:
-    Value: !Ref Topic
-    Export:
-      Name: !Sub ${AWS::StackName}-Topic
-  Catalog:
-    Value: !Ref Catalog
-    Export:
-      Name: !Sub ${AWS::StackName}-Catalog
-  CatalogArn:
-    Value: !GetAtt Catalog.Arn
-    Export:
-      Name: !Sub ${AWS::StackName}-CatalogArn
+### Testing complexity
+While synthetic benchmarking and test datasets yield useful results, a more realistic workload is required to rigorously test infrastructure and code before deployment to production. The team used **Terraform** to manage infrastructure alongside application code, creating multiple dev and test environments, and allowing them to test the platform internally with their own applications before each release.
+
+### Multi-region infrastructure
+The need to cater to multiple data storage regions also brought challenges—with latency, complexity, and cost the foremost concerns. However, the AWS, ClickHouse Cloud, and Cloudflare stack made available a powerful set of networking tools and scaling options. While VPC peering, RDS replication, and global server load balancing did the heavy lifting on the networking side, the ability to scale and right-size each resource kept costs to a minimum.
+
+### Query performance at scale
+Materialized views, intelligent time-series partitioning, and specialized ClickHouse codecs helped ensure that queries remained sub-second even as data volumes grew into the billions. Meanwhile, compute separation allowed distinct workloads to scale separately while accessing the same data, with clusters right-sized horizontally and vertically depending on the requirements of each load.
+
+---
+
+## Results
+
+Laravel Nightwatch’s launch exceeded expectations:
+* **5,300** users registered in the first 24 hours
+* **500 million** events processed on day one
+* **97 ms** average dashboard request latency
+* **760,000** exceptions logged and analyzed in real time
+
+By building on Amazon MSK and ClickHouse Cloud, we were able to scale from zero to billions of events without sacrificing performance or developer experience.
+
+---
+
+## What’s next
+
+Laravel plans to expand Nightwatch with:
+* **More regions** to cater to customers with data sovereignty requirements outside the US and EU.
+* **Broader data collection** to provide even deeper insight into customers’ applications.
+* **SOC 2 certification** to cater to customers with tighter compliance requirements.
+* **More advanced monitoring and analysis** to identify issues before they affect users.
+
+The current architecture comfortably supports applications of all sizes, from hobby to enterprise (including a generous free tier), and is designed to handle over one trillion monthly events without performance degradation.
+
+---
+
+## Conclusion
+
+Laravel Nightwatch demonstrates how Amazon MSK, ClickHouse Cloud, and AWS serverless technologies can be combined to build a cost-effective, real-time monitoring platform at global scale. By designing for scale from day one, Laravel delivered sub-second analytics across billions of events, while maintaining the developer-friendly experience their community expects.
+
+---
+
+### About the authors
+
+![Jess Archer](/images/blog2/jess-archer.png)
+**Jess Archer** is an Engineering Manager and Head of Nightwatch at Laravel, focusing on application observability, performance monitoring, and developer experience. She leads the Nightwatch team while staying hands-on in the codebase. Prior to Laravel, Jess worked on clinical data collection platforms, software for law enforcement, and anti-phishing solutions in banking. She later contributed extensively to Laravel’s open-source ecosystem before moving into her current leadership role. Jess is deeply passionate about open source and creating tools that make developers more productive.
+
+![James Carpenter](/images/blog2/james-carpenter.png)
+**James Carpenter** is a Senior Infrastructure Engineer joined Laravel in 2024 as Infrastructure Lead for the Nightwatch team, bringing experience from 15 years in sport and healthcare. Specialising in DevOps and Infrastructure, he is passionate about solving complex problems and creating exceptional experiences for both customers and developers.
+
+![Johnny Mirza](/images/blog2/johnny-mirza.png)
+**Johnny Mirza** is a Solution Architect with ClickHouse, working with users across APAC. With over 20 years of background in solutions engineering, he’s experienced in architecting and enabling solutions for enterprise clients in the telecommunications, media, insurance, and financial services sectors. Johnny has a high level of expertise of integration between both public cloud and on-premise infrastructure, while focussing on service assurance, monitoring platforms, and open-source technologies. Prior to ClickHouse, Johnny was part of the solution engineering teams at Confluent, Splunk, and Optus, to name a few.
+
+![Masudur Rahaman Sayem](/images/blog2/masudur-rahaman-sayem.png)
+**Masudur Rahaman Sayem** is a Streaming Data Architect at AWS with over 25 years of experience in the IT industry. He collaborates with AWS customers worldwide to architect and implement sophisticated data streaming solutions that address complex business challenges. As an expert in distributed computing, Sayem specializes in designing large-scale distributed systems architecture for maximum performance and scalability. He has a keen interest and passion for distributed architecture, which he applies to designing enterprise-grade solutions at internet scale.

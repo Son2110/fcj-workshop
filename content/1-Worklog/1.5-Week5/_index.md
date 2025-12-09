@@ -32,4 +32,4 @@ pre: " <b> 1.5. </b> "
 
 * Understand about minimax algorithm
 
-* Successfully create tic-tac-toe app for player play with AI with 2 mode easy and hard base on minimax algoritm
+* Successfully create tic-tac-toe app for player play with AI with 2 mode easy and hard base on minimax algorithm

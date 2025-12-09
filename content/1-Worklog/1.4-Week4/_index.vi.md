@@ -5,55 +5,32 @@ weight: 1
 chapter: false
 pre: " <b> 1.4. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
-
 
 ### Mục tiêu tuần 4:
 
-* Kết nối, làm quen với các thành viên trong First Cloud Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Hiểu những kiến thức cơ bản về bảo mật trên AWS.
+* Biết cách quản lý tài nguyên bằng thẻ (tags).
+* Biết cách tạo IAM role và policy.
 
 ### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| Thứ | Công việc                                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ | --------------- | ----------------------------------------- |
+| 2   | - **Thực hành:** <br>&emsp; + Tạo CloudFormation <br>&emsp; + Tạo Amazon FSx (SSD & HDD) <br>&emsp; + Bật shadow copies, hạn ngạch lưu trữ người dùng và chia sẻ truy cập liên tục <br>&emsp; + Mở rộng dung lượng lưu trữ và thông lượng                                                                                                               | 29/09/2025   | 29/09/2025      | <https://000025.awsstudygroup.com/>
+| 3   | - Tìm hiểu về các dịch vụ bảo mật trên AWS: <br>&emsp; + Mô hình trách nhiệm chia sẻ (Shared Responsibility Model) <br>&emsp; + AWS Identity and Access Management (IAM) <br>&emsp; + Amazon Cognito <br>&emsp; + AWS Organization <br>&emsp; + KMS <br>                                              | 30/09/2025   | 30/09/2025      | <https://www.youtube.com/watch?v=tsobAlSg19g&list=PLahN4TLWtox2a3vElknwzU_urND8hLn1i&index=150> |
+| 4   | - Thực hiện 3 bài lab 18, 22 và 27 <br> - **Thực hành:** <br>&emsp; + Bật Security Hub <br>&emsp; + Tạo tags cho Instances <br>&emsp; + Tạo role cho Lambda function <br>&emsp; + Quản lý tài nguyên bằng cách sử dụng tags và resources groups  | 01/10/2025   | 01/10/2025      | <https://000022.awsstudygroup.com/> <br> <https://000027.awsstudygroup.com/> <br> <https://000018.awsstudygroup.com/> |
+| 5   | - Thực hiện 3 bài lab 28, 30 và 33 <br>  - **Thực hành:** <br>&emsp; + Tạo IAM policy và role <br>&emsp; + Tạo Restriction Policy và IAM limited user <br>&emsp; + Tạo Key Management Service (KMS), AWS CloudTrail và Amazon Athena <br>&emsp; + Chia sẻ dữ liệu mã hóa trên S3                                        | 02/10/2025   | 02/10/2025      | <https://000028.awsstudygroup.com/> <br> <https://000030.awsstudygroup.com/> <br> <https://000033.awsstudygroup.com/> |
+| 6   | - Thực hiện 2 bài lab 44 và 48 <br> - **Thực hành:** <br>&emsp; + Tạo IAM Group, IAM User <br>&emsp; + Cấu hình điều kiện cho role (role condition) <br>&emsp; + Truy cập ứng dụng thông qua access key và IAM role trên EC2                                                                                     | 03/10/2025   | 03/10/2025      |<https://000044.awsstudygroup.com/> <br> <https://000048.awsstudygroup.com/> |
 
 
 ### Kết quả đạt được tuần 4:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Đã hiểu về bảo mật trên AWS: 
+  * Mô hình trách nhiệm chia sẻ (Shared Responsibility Model)
+  * AWS Identity and Access Management (IAM)
+  * Amazon Cognito
+  * AWS Organization
+  * KMS
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Đã tạo và cấu hình thành công IAM role và policy.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Đã làm quen với việc sử dụng tags và group resources để quản lý tài nguyên.

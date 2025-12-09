@@ -6,42 +6,49 @@ chapter: false
 pre: " <b> 7. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
-
-> Here, you can freely share your personal opinions about your experience participating in the First Cloud Journey program. This will help the FCJ team improve any shortcomings based on the following aspects:
 
 ### Overall Evaluation
 
-**1. Working Environment**  
-The working environment is very friendly and open. FCJ members are always willing to help whenever I encounter difficulties, even outside working hours. The workspace is tidy and comfortable, helping me focus better. However, I think it would be nice to have more social gatherings or team bonding activities to strengthen relationships.
+**1. Working Environment**
+The office environment is super nice and professional. Everyone at FCJ is friendly and approachable. I never felt scared to ask questions. Plus, working at Bitexco Tower gives a really cool vibe that makes me want to go to work every day.
 
-**2. Support from Mentor / Team Admin**  
-The mentor provides very detailed guidance, explains clearly when I don’t understand, and always encourages me to ask questions. The admin team supports administrative tasks, provides necessary documents, and creates favorable conditions for me to work effectively. I especially appreciate that the mentor allows me to try and solve problems myself instead of just giving the answer.
+**2. Support from Mentor / Team Admin**
+My mentor is awesome. Instead of just giving me the answers, they guide me on how to search and solve problems myself, which helps me learn faster. The Admin team is also very helpful with paperwork and setting up accounts, so I didn't have any issues getting started.
 
-**3. Relevance of Work to Academic Major**  
-The tasks I was assigned align well with the knowledge I learned at university, while also introducing me to new areas I had never encountered before. This allowed me to both strengthen my foundational knowledge and gain practical skills.
+**3. Relevance of Work to Academic Major**
+It fits perfectly with my IT major. At university, I learned a lot of theory, but here I got to practice on real AWS services like EC2, S3, and Bedrock. It bridged the gap between school books and the real world.
 
-**4. Learning & Skill Development Opportunities**  
-During the internship, I learned many new skills such as using project management tools, teamwork skills, and professional communication in a corporate environment. The mentor also shared valuable real-world experiences that helped me better plan my career path.
+**4. Learning & Skill Development Opportunities**
+I didn't just learn about Cloud and Coding. I also learned how to write professional emails, how to write technical blogs, and how to work in a team. The workshops I attended gave me a lot of new keywords to research.
 
-**5. Company Culture & Team Spirit**  
-The company culture is very positive: everyone respects each other, works seriously but still keeps things enjoyable. When there are urgent projects, everyone works together and supports one another regardless of their position. This made me feel like a real part of the team, even as an intern.
+**5. Company Culture & Team Spirit**
+The culture here is "Work hard, Play hard." People are serious when working but very fun during breaks. I feel respected even though I'm just an intern. There is no toxic hierarchy here.
 
-**6. Internship Policies / Benefits**  
-The company provides an internship allowance and offers flexible working hours when needed. In addition, having the opportunity to join internal training sessions is a big plus.
+**6. Internship Policies / Benefits**
+The allowance is fair for an intern. What I appreciate most is the flexible schedule, allowing me to balance work and my remaining classes at school. Also, getting free tickets to tech events is a huge plus!
 
 ---
 
 ### Additional Questions
-- What did you find **most satisfying** during your internship?  
-- What do you think the company **should improve** for future interns?  
-- If recommending to a friend, would you **suggest they intern here**? Why or why not?  
+
+- **What did you find most satisfying during your internship?**
+The most satisfying thing was successfully deploying my first project on AWS and seeing it run live. Also, being able to attend the "AWS Cloud Mastery" workshops and meet industry experts was a highlight.
+
+- **What do you think the company should improve for future interns?**
+I think the onboarding documentation could be a bit more detailed. For the first few days, I was a bit confused about where to find things. A "Starter Kit" guide would be great.
+
+- **If recommending to a friend, would you suggest they intern here? Why or why not?**
+Definitely, YES. If my friends want to learn about Cloud and DevOps seriously, this is the place. You get to touch real systems, not just fetch coffee.
 
 ---
 
 ### Suggestions & Expectations
-- Do you have any suggestions to improve the internship experience?  
-- Would you like to continue this program in the future?  
-- Any other comments (free sharing):
+
+- **Do you have any suggestions to improve the internship experience?**
+It would be cool to have a weekly "sharing session" where interns can present what they learned to the team to practice public speaking.
+
+- **Would you like to continue this program in the future?**
+I haven't made a final decision yet. However, I will definitely continue to pursue and upgrade my AWS knowledge.
+
+- **Any other comments (free sharing):**
+I just want to say a big thank you to my mentor and the whole team for being so patient with me. This internship has been the best learning experience I've had so far.

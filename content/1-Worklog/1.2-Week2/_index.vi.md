@@ -9,35 +9,34 @@ pre: " <b> 1.2. </b> "
 
 ### Mục tiêu tuần 2:
 
-* Hiểu dịch vụ EC2, CloudFormation, VPC peering, AWS Transit Gateway
-* Biết cách khởi tạo instance Linux và Windows
+* Hiểu về EC2, CloudFormation, VPC peering, AWS Transit Gateway.
+* Biết cách khởi chạy Amazon Linux Instance và Microsoft Windows Instance.
 
 ### Các công việc cần triển khai trong tuần này:
-
-| Thứ | Công việc                                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
+| Thứ | Công việc                                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Học về EC2 <br>&emsp; + Instance Type <br>&emsp; + User data <br>&emsp; + Meta data <br>&emsp; + EC2 auto scaling - EFS/FSx - Lightsail - MGN <br> - **Practice:** <br>&emsp; + Tạo Linux và Windows VPC <br>&emsp; + Tạo Security Group cho Linux và Windows Instance <br>&emsp; + Khởi tạo Linux và Windows Instance <br>&emsp; + Kết nối với Linux và Windows Instance <br>&emsp; + Triển khai ứng dụng AWS User Management trên Amazon EC2 Linux/Windows                                                           | 09/15/2025 | 09/15/2025      | <https://000004.awsstudygroup.com/>
-| 3   | - Học về Hybrid DNS với Route 53 <br>&emsp; + Outbound Endpoints <br>&emsp; + Inbound Endpoints <br>&emsp; + Route 53 Resolver Rules <br> - **Practice:** <br>&emsp; + Tạo key pair <br>&emsp; + Tạo CloudFormation Template, Security Group <br>&emsp; + Kết nối với RDGW                                          | 09/16/2025 | 09/16/2025      | <https://000010.awsstudygroup.com/> |
-| 4   | - Học về VPC peering <br> - **Practice:** <br>&emsp; + Tạo VPC peering  | 09/17/2025 | 09/17/2025      | <https://000019.awsstudygroup.com/> |
-| 5   | - Tham gia sự kiện AWS Cloud Day                       | 09/18/2025 | 09/18/2025      |  |
-| 6   | - Học về AWS Transit Gateway <br> - **Practice:** <br>&emsp; + Tạo AWS Transit Gateway                                                                                      | 09/19/2025 | 09/19/2025      | <https://000020.awsstudygroup.com/> |
+| 2   | - **Thực hành:** <br>&emsp; + Tạo VPC cho Linux và Windows <br>&emsp; + Tạo Security Group (SC) cho Linux và Windows Instance <br>&emsp; + Khởi chạy Linux và Windows Instance <br>&emsp; + Kết nối tới Linux và Windows Instance  <br>&emsp; + Triển khai ứng dụng quản lý người dùng AWS trên Amazon EC2 Linux/Windows                                                           | 15/09/2025   | 15/09/2025      | <https://000004.awsstudygroup.com/>
+| 3   | - Tìm hiểu về Hybrid DNS với Route 53: <br>&emsp; + Outbound Endpoints <br>&emsp; + Inbound Endpoints <br>&emsp; + Route 53 Resolver Rules <br> - **Thực hành:** <br>&emsp; + Tạo key pair <br>&emsp; + Tạo CloudFormation Template, SC <br>&emsp; + Kết nối tới RDGW                                          | 16/09/2025   | 16/09/2025      | <https://000010.awsstudygroup.com/> |
+| 4   | - Tìm hiểu về VPC peering  <br> - **Thực hành:** <br>&emsp; + Tạo VPC peering  | 17/09/2025   | 17/09/2025      | <https://000019.awsstudygroup.com/> |
+| 5   | - Tham gia sự kiện AWS Cloud Day                       | 18/09/2025   | 18/09/2025      |  |
+| 6   | - Tìm hiểu về AWS Transit Gateway  <br> **Thực hành:** <br>&emsp; + Tạo AWS Transit Gateway                                                                                      | 19/09/2025   | 19/09/2025      | <https://000020.awsstudygroup.com/> |
 
 
 
 ### Kết quả đạt được tuần 2:
 
-* Hiểu được EC là gì và nắm được các kiến thức cơ bản về EC2:
+* Hiểu EC2 là gì và nắm vững các kiến thức cơ bản về EC2: 
   * Instance Type
   * AMI
-  * Key Pair 
+  * Key Pair
   * Backup
-  
-* Thành công tạo Instance từ custim AMI and truy cập WIndows/Linux Instance khi mất key pair
 
-* Tạo thành công Hybrid DNS with Route 53 Resolver, kêt nối với RDGW and thiết lập  DNS:
+* Khởi chạy thành công Instance từ custom AMI và truy cập vào Windows/Linux Instance khi mất key pair.
+
+* Tạo thành công Hybrid DNS với Route 53 Resolver , kết nối tới RDGW và thiết lập DNS:
   * Outbound Endpoint
   * Inbound Endpoint
-  * Route 53 Resovler Rules
+  * Route 53 Resolver Rules
 
 * Hiểu về VPC Peering và thiết lập:
   * CloudFormation Template
@@ -47,11 +46,8 @@ pre: " <b> 1.2. </b> "
   * Route Tables
   * Cross-Peer DNS
 
-* Hiểu về AWS Transite Gateway and know to create:
-  * Transite Gateway
-  * Transite Gateway Attachment
-  * Transite Gateway Route Tables
-  * Add Transite Gateway Routes to VPC Route Tables
-
-
-
+* Hiểu về AWS Transit Gateway và biết cách tạo:
+  * Transit Gateway
+  * Transit Gateway Attachment
+  * Transit Gateway Route Tables
+  * Thêm các tuyến Transit Gateway vào VPC Route Tables

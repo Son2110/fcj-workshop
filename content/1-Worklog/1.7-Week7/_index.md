@@ -10,7 +10,7 @@ pre: " <b> 1.7. </b> "
 ### Week 7 Objectives:
 
 * Complete labs of module 7
-* Complet assignment of Hackathon
+* Complete assignment of Hackathon
 
 ### Tasks to be carried out this week:
 | Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |

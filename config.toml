@@ -1,4 +1,5 @@
 baseURL = "https://Son2110.github.io/fcj-workshop/"
+publishDir = "docs"
 relativeURLs = true
 canonifyURLs = true
 

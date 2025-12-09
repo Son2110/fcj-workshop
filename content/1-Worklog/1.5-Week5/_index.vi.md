@@ -5,55 +5,30 @@ weight: 1
 chapter: false
 pre: " <b> 1.5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
 
 ### Mục tiêu tuần 5:
 
-* Kết nối, làm quen với các thành viên trong First Cloud Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Ôn tập kiến thức về VPC, EC2, S3,...
+* Dịch 3 bài blog.
+* Hiểu về thuật toán Minimax.
 
 ### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| Thứ | Công việc                                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ | --------------- | ----------------------------------------- |
+| 2   | - Ôn tập kiến thức từ module 1 đến module 5 <br>&emsp; + VPC <br>&emsp; + EC2 <br>&emsp; + S3 <br>&emsp; + Security (Bảo mật) <br>&emsp; + ...                                                                                                  | 06/10/2025   | 06/10/2025      |                                           |
+| 3   | - Dịch 3 bài blog: <br>&emsp; + Rox tăng tốc năng suất bán hàng với các tác nhân AI được hỗ trợ bởi Amazon Bedrock  <br>&emsp; + Cách Laravel Nightwatch xử lý hàng tỷ sự kiện quan sát trong thời gian thực với Amazon MSK và ClickHouse Cloud <br>&emsp; + Cách xuất dữ liệu sang Amazon S3 Tables bằng AWS Step Functions Distributed Map | 07/10/2025   | 07/10/2025      |                                           |
+| 4   | - Ôn tập về React: <br>&emsp; + Component <br>&emsp; + Props <br>&emsp; + React hook <br> - Tìm hiểu về thuật toán Minimax <br> - ***Thực hành:*** <br>&emsp; + Tạo trò chơi Tic Tac Toe đơn giản | 08/10/2025   | 08/10/2025      | <https://coderschool.notion.site/Naver-AI-Hackathon-Week-1-Web-Minimax-284ea86d567a80f98983c7c219c4308b> |
+| 5   | - Tạo trò chơi Tic Tac Toe cho phép người chơi đấu với AI với 2 chế độ: dễ và khó                            | 09/10/2025   | 09/10/2025      | <https://coderschool.notion.site/Week-1-Assignment-React-27fea86d567a80718ce4ee04b19ed8d9> |
+| 6   | - Tiếp tục sửa lỗi và tối ưu hóa trò chơi Tic Tac Toe  <br> - Chỉnh sửa các bài blog                                                                                   | 10/10/2025   | 10/10/2025      | <https://github.com/Son2110/tic-tac-toe-ai> |
 
 
 ### Kết quả đạt được tuần 5:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Đã ôn tập kiến thức về VPC, EC2, S3, Bảo mật,... 
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Hoàn thành việc dịch 3 bài blog.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+* Hiểu rõ về thuật toán Minimax. 
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Đã tạo thành công ứng dụng Tic Tac Toe cho người chơi đấu với AI (2 chế độ dễ/khó) dựa trên thuật toán Minimax.
