@@ -34,7 +34,7 @@ Chính sách thực tập khá ổn. Điều mình đánh giá cao nhất là h�
 - **Điều gì làm bạn hài lòng nhất trong kỳ thực tập?**
 Điều mình vui nhất là khi tự tay deploy thành công dự án lên AWS và thấy nó chạy ngon lành. Ngoài ra, việc được tham gia sự kiện "AWS Cloud Day" và gặp gỡ các chuyên gia cũng là trải nghiệm mình rất thích.
 
-- **Bạn nghĩ công ty nên cải thiện điều gì cho các bạn thực tập sinh sau?** Không
+- **Bạn nghĩ công ty nên cải thiện điều gì cho các bạn thực tập sinh sau?** Không.
 
 - **Bạn có giới thiệu bạn bè vào thực tập không? Tại sao?**
 Chắc chắn là CÓ. Nếu bạn mình muốn theo mảng Cloud/DevOps thì đây là chỗ lý tưởng. Vào đây là được làm thật, học thật chứ không phải chỉ ngồi chơi xơi nước.
@@ -43,8 +43,7 @@ Chắc chắn là CÓ. Nếu bạn mình muốn theo mảng Cloud/DevOps thì đ
 
 ### Đề xuất & Mong muốn
 
-- **Bạn có đề xuất gì để cải thiện trải nghiệm thực tập không?**
-Sẽ hay hơn nếu có buổi "chia sẻ nội bộ" hàng tuần, nơi thực tập sinh có thể trình bày những gì mình mới học được để luyện kỹ năng thuyết trình trước đám đông.
+- **Bạn có đề xuất gì để cải thiện trải nghiệm thực tập không?** Không.
 
 - **Bạn có muốn tiếp tục chương trình này không?**
 Hiện tại em vẫn chưa đưa ra quyết định cuối cùng ạ. Tuy nhiên, chắc chắn em sẽ tiếp tục theo đuổi và trau dồi thêm kiến thức về AWS.

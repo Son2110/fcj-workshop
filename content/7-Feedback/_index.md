@@ -26,6 +26,7 @@ The culture here is "Work hard, Play hard." People are serious when working but 
 
 **6. Internship Policies / Benefits**
 The allowance is fair for an intern. What I appreciate most is the register system, which allows us to balance the register with the office. Also, getting the chance to join tech events is a huge plus!
+
 ---
 
 ### Additional Questions
@@ -43,8 +44,7 @@ Definitely, YES. If my friends want to learn about Cloud and DevOps seriously, t
 
 ### Suggestions & Expectations
 
-- **Do you have any suggestions to improve the internship experience?**
-It would be cool to have a weekly "sharing session" where interns can present what they learned to the team to practice public speaking.
+- **Do you have any suggestions to improve the internship experience?** None.
 
 - **Would you like to continue this program in the future?**
 I haven't made a final decision yet. However, I will definitely continue to pursue and upgrade my AWS knowledge.
