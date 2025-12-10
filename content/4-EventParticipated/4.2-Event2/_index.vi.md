@@ -9,7 +9,7 @@ pre: " <b> 4.2. </b> "
 
 # Báo cáo tổng hợp: "AWS Cloud Mastery Series #1: AI/ML/GenAI trên AWS"
 
-### Mục tiêu tham dự
+### Mục đích của sự kiện
 
 - Tìm hiểu khái niệm cơ bản về Mô hình nền tảng (Foundation Model).
 - Học hỏi các phương pháp kỹ thuật đặt câu lệnh (Prompting) để tối ưu kết quả đầu ra.
@@ -22,7 +22,7 @@ pre: " <b> 4.2. </b> "
 - **Lam Truong Kiet**
 - **Dinh Le Hoang Anh**
 
-### Những điểm nổi bật
+### Nội dung nổi bật
 
 #### Kỹ thuật Prompting (Kỹ thuật gợi ý)
 

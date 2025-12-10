@@ -95,7 +95,7 @@ pre: " <b> 4.3. </b> "
 
 Attending the **“DevOps on AWS”** workshop was really eye-opening, almost like having a guide for my DevOps career path. Some memorable experiences included:
 
-#### Learning from the pros (Speakers)
+#### Learning from the Speakers
 - Experts from FACJ shared very honest stories about their daily DevOps work.
 - Got to see a live demo of system monitoring, which looked really professional.
 

@@ -1,87 +1,85 @@
 ---
-title: "Event 1"
+title: "Sự kiện 1"
 date: "2025-09-09"
 weight: 1
 chapter: false
 pre: " <b> 4.1. </b> "
 ---
 
+# Báo cáo tổng hợp: "AWS GenAI & Data"
 
-# Báo cáo tổng hợp: "Vietnam Cloud Day HCMC Connect Edition: GenAI & Data Track"
+### Mục tiêu tham dự
 
-### Mục tiêu sự kiện
-
-- Cập nhật các xu hướng công nghệ mới nhất về **Generative AI (GenAI)** và **Phân tích dữ liệu (Data Analytics)**.
-- Khám phá cách xây dựng nền tảng dữ liệu thống nhất (Unified Data Foundation) để hỗ trợ các ứng dụng AI.
-- Tìm hiểu các giải pháp thực tế từ các doanh nghiệp hàng đầu trong việc áp dụng GenAI vào quy trình vận hành.
-- Kết nối với các chuyên gia và lãnh đạo công nghệ để trao đổi về chiến lược chuyển đổi số.
+- Tìm hiểu cách xây dựng nền móng dữ liệu (Data Foundation) vững chắc cho AI.
+- Cập nhật lộ trình và xu hướng áp dụng GenAI trên AWS.
+- Tiếp cận khái niệm mới: Vòng đời phát triển phần mềm định hướng AI (AI-DLC).
+- Học về bảo mật cho các ứng dụng Generative AI.
+- Khám phá sức mạnh của các Tác nhân AI (AI Agents).
 
 ### Diễn giả
 
-- **Eric Yeo** - Country General Manager, AWS Vietnam
-- **Trung Tri Nguyen** - Analytics Specialist Solutions Architect, AWS
-- **Hailey Dinh** - Senior Sales Specialist (ASEAN Data & AI), AWS
-- **Quang Chu** - Senior Solutions Architect, AWS Vietnam
-- **Christopher Bennett** - CTO, TymeX
+- **Jun Kai Loke** - AI/ML Specialist SA, AWS
+- **Kien Nguyen** - Solutions Architect, AWS
+- **Tamelly Lim** - Storage Specialist SA, AWS
+- **Binh Tran** - Senior Solutions Architect, AWS
+- **Taiki Dang** - Solutions Architect, AWS
+- **Michael Armentano** - Principal WW GTM Specialist, AWS
 
-### Điểm nổi bật (Key Highlights)
+### Những điểm nổi bật
 
 #### Nền tảng dữ liệu thống nhất (Unified Data Foundation)
 
-- Tầm quan trọng của việc phá vỡ các "silos" dữ liệu (kho dữ liệu cô lập) để tạo ra một nguồn chân lý duy nhất (single source of truth).
-- Sử dụng các dịch vụ như **Amazon S3**, **AWS Glue**, và **AWS Lake Formation** để xây dựng Data Lakehouse bảo mật và có khả năng mở rộng.
-- Tích hợp dữ liệu liền mạch giữa phân tích (Analytics) và AI/ML để tăng tốc độ đổi mới.
+- **Móng nhà phải chắc**: Trước khi làm AI xịn sò, phải có hạ tầng dữ liệu ngon nghẻ đã.
+- **Các thành phần**: Mình được nghe về cách thu thập, lưu trữ và quản trị dữ liệu để đáp ứng nhu cầu của các ứng dụng hiện đại.
 
-#### Ứng dụng Generative AI với Amazon Bedrock
+#### Vòng đời phát triển định hướng AI (AI-DLC)
 
-- Cách đơn giản hóa việc xây dựng và mở rộng các ứng dụng GenAI bằng **Amazon Bedrock**.
-- Tận dụng các mô hình nền tảng (Foundation Models) hàng đầu thông qua API duy nhất mà không cần quản lý cơ sở hạ tầng phức tạp.
-- Các tính năng bảo mật và quyền riêng tư dữ liệu khi triển khai GenAI cho doanh nghiệp.
+- **Thay đổi tư duy**: AI không chỉ là công cụ hỗ trợ (assistant) mà là một cộng sự (collaborator) trung tâm trong toàn bộ quy trình làm phần mềm.
+- **Người + AI**: Kết hợp sức mạnh thực thi của AI với sự giám sát của con người để code nhanh hơn và xịn hơn.
 
-#### Chuyển đổi số trong lĩnh vực Tài chính (Use Case: TymeX)
+#### Bảo mật cho GenAI
 
-- Chia sẻ thực tế về việc xây dựng giải pháp cho vay cá nhân hóa từ đầu đến cuối (end-to-end personalized lending solution).
-- Áp dụng phân tích dữ liệu nâng cao để đánh giá rủi ro và tối ưu hóa trải nghiệm khách hàng.
+- **Bảo mật đa lớp**: Bảo vệ từ hạ tầng, mô hình (model) cho đến ứng dụng.
+- **Zero-Trust**: Học được về mã hóa và kiểm soát truy cập để đảm bảo dữ liệu không bị lộ trong suốt vòng đời AI.
 
-### Bài học chính (Key Takeaways)
+#### AI Agents (Tác nhân AI)
 
-#### Chiến lược dữ liệu hiện đại (Modern Data Strategy)
+- **Nhân bản năng suất**: Chuyển từ việc tự động hóa đơn giản sang việc dùng các Agent thông minh, có thể tự học và tự thực hiện các tác vụ phức tạp.
 
-- Dữ liệu là nhiên liệu cho AI: Để GenAI hoạt động hiệu quả, doanh nghiệp cần có một chiến lược dữ liệu vững chắc, đảm bảo chất lượng, tính sẵn sàng và tuân thủ bảo mật.
-- **Zero-ETL**: Xu hướng tích hợp trực tiếp giữa các dịch vụ cơ sở dữ liệu (như Amazon Aurora, DynamoDB) và kho dữ liệu (Amazon Redshift) để giảm thiểu việc di chuyển dữ liệu thủ công.
+### Bài học rút ra
 
-#### Quyền năng của Generative AI
+#### Dữ liệu là tiên quyết
 
-- GenAI không chỉ là trào lưu mà đang tạo ra tác động thực tế đến nền kinh tế và năng suất lao động.
-- Các ứng dụng tiềm năng: Tự động hóa chăm sóc khách hàng, tạo nội dung marketing, hỗ trợ lập trình (coding assistant), và phân tích dữ liệu thông minh.
+- Mình ngộ ra rằng "Dữ liệu là nhiên liệu". Nếu không có nền tảng dữ liệu thống nhất và có khả năng mở rộng, thì các dự án AI chỉ là giấc mơ.
 
-#### Kiến trúc Serverless cho Data & AI
+#### AI là đồng nghiệp
 
-- Sử dụng kiến trúc không máy chủ (Serverless) giúp giảm gánh nặng vận hành, cho phép đội ngũ tập trung vào việc phát triển logic nghiệp vụ và mô hình AI.
+- Khái niệm AI-DLC khá mới mẻ với mình. Nó thay đổi cách nhìn từ "dùng AI viết code hộ" sang "làm việc cùng AI" để đổi mới sáng tạo.
+
+#### Bảo mật là sống còn
+
+- Bảo mật cho GenAI phức tạp hơn mình nghĩ. Mình học được là phải bảo vệ tính toàn vẹn và bí mật của dữ liệu ở mọi khâu.
 
 ### Áp dụng vào công việc
 
-- **Rà soát lại kiến trúc dữ liệu**: Đánh giá lại cách tổ chức dữ liệu hiện tại của dự án, xem xét áp dụng mô hình Data Lakehouse.
-- **Thử nghiệm Amazon Bedrock**: Đề xuất xây dựng các bản thử nghiệm (POC) nhỏ sử dụng Bedrock để giải quyết các bài toán cụ thể (ví dụ: tóm tắt văn bản, chatbot nội bộ).
-- **Tối ưu hóa quy trình ETL**: Nghiên cứu các giải pháp Zero-ETL của AWS để giảm độ trễ dữ liệu.
+- **Rà soát dữ liệu**: Mình sẽ xem lại cách lưu trữ dữ liệu trong các bài tập hiện tại xem đã tối ưu cho AI chưa.
+- **Thử nghiệm Agent**: Mình muốn thử tạo một AI Agent đơn giản để tự động hóa vài việc lặp đi lặp lại hàng ngày.
+- **Chú trọng bảo mật**: Sẽ để ý kỹ hơn về mã hóa và quyền truy cập khi nghịch thử các mô hình trên Amazon Bedrock.
 
 ### Trải nghiệm sự kiện
 
-Tham gia **Vietnam Cloud Day HCMC Connect Edition** (Track GenAI & Data) mang lại cho tôi cái nhìn sâu sắc về tương lai của công nghệ dữ liệu và AI.
+Tham gia buổi này giúp mình có cái nhìn toàn cảnh về bức tranh GenAI trên AWS.
 
-#### Học hỏi từ các Case Study thực tế
-- Phần chia sẻ của TymeX và các đối tác giúp tôi hình dung rõ ràng hơn về những thách thức và giải pháp khi triển khai AI trong môi trường doanh nghiệp lớn, đặc biệt là ngành tài chính đòi hỏi độ chính xác cao.
+#### Học từ chuyên gia
+- Phần chia sẻ của anh **Binh Tran** về AI-DLC thực sự mở mang tầm mắt. Nó làm mình suy nghĩ lại về tương lai của nghề lập trình phần mềm.
+- Bài nói của anh **Michael Armentano** về AI Agents làm mình thấy rất hào hứng về viễn cảnh năng suất làm việc tăng gấp nhiều lần.
 
-#### Khám phá hệ sinh thái AWS cho Data & AI
-- Hiểu rõ hơn về sự liên kết chặt chẽ giữa các dịch vụ AWS. Không có một dịch vụ nào đứng riêng lẻ; sức mạnh nằm ở sự kết hợp giữa Data Analytics (Glue, Redshift) và AI (SageMaker, Bedrock).
-
-#### Kết nối cộng đồng
-- Sự kiện là cơ hội tuyệt vời để gặp gỡ các chuyên gia trong ngành, trao đổi về những khó khăn chung khi làm việc với dữ liệu lớn và nhận được những lời khuyên giá trị.
+#### Hiểu về hệ sinh thái
+- Mình thấy được sự liên kết chặt chẽ giữa các mảnh ghép: từ lớp dữ liệu thô (Storage) đến lớp bảo mật, và cuối cùng là lớp ứng dụng với Agents.
 
 #### Một số hình ảnh tại sự kiện
 
 ![piture_1](/images/event1/166cddc108a987f7deb8.jpg)
 ![piture_2](/images/event1/946532dae7b268ec31a3.jpg)
 
-
-> Nhìn chung, track về GenAI và Data đã củng cố niềm tin của tôi rằng "Dữ liệu là tài sản cốt lõi". Việc nắm vững cách quản lý dữ liệu và ứng dụng AI sẽ là chìa khóa để tạo ra lợi thế cạnh tranh trong thời đại số.
+> Tóm lại, sự kiện này không chỉ nói về những thứ "đao to búa lớn" mà cung cấp một lộ trình rõ ràng để xây dựng và bảo mật các giải pháp GenAI. Rất đáng thời gian tham dự!

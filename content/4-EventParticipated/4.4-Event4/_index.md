@@ -88,8 +88,8 @@ pre: " <b> 4.4. </b> "
 
 Attending the **“AWS Well-Architected Security Pillar”** workshop helped me realize that security isn't just about firewalls; it's a whole mindset.
 
-#### Learning from the Seniors
-- Listening to senior engineers talk about how they handle real incidents was eye-opening. They focused a lot on "lessons learned" rather than just fixing the bug.
+#### Learning from the Speaker
+- Listening to speaker talk about how they handle real incidents was eye-opening. They focused a lot on "lessons learned" rather than just fixing the bug.
 
 #### Networking with Cloud Clubs
 - It was nice to see the energy from the university Cloud Clubs. It connects learners like me from everywhere.

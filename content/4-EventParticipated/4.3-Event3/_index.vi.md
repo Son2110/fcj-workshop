@@ -9,7 +9,7 @@ pre: " <b> 4.3. </b> "
 
 # Báo cáo tổng hợp: "AWS Cloud Mastery Series #2: DevOps on AWS"
 
-### Mục tiêu buổi học
+### Mục đích của sự kiện
 
 - Hiểu thế nào là tư duy DevOps.
 - Biết về các dịch vụ AWS cho DevOps và quy trình CI/CD.
@@ -18,14 +18,14 @@ pre: " <b> 4.3. </b> "
 - Cách giám sát và quan sát hệ thống (Monitoring & Observability).
 - Nghe các kinh nghiệm thực tế (Best Practices) và bài học xương máu.
 
-### Diễn giả
+### Danh sách diễn giả
 
 - **Truong Quang Tinh**
 - **Nghiem Le**
 - **Long Huynh**
 - **Quy Pham**
 
-### Những điểm hay ho mình ghi lại được
+### Nội dung nổi bật
 
 #### Tư duy DevOps (DevOps Mindset)
 
@@ -95,7 +95,7 @@ pre: " <b> 4.3. </b> "
 
 Tham gia buổi workshop **“DevOps on AWS”** thực sự rất mở mang đầu óc, giống như có người vẽ đường cho mình đi trong nghề DevOps vậy. Một số trải nghiệm đáng nhớ:
 
-#### Học từ các anh đi trước (Speakers)
+#### Học hỏi từ các diễn giả
 - Các chuyên gia từ FACJ chia sẻ rất thật về công việc DevOps hàng ngày.
 - Được xem demo trực tiếp về cách giám sát hệ thống, nhìn rất chuyên nghiệp.
 

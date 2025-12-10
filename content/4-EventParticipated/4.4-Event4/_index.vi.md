@@ -9,7 +9,7 @@ pre: " <b> 4.4. </b> "
 
 # Báo cáo tổng hợp: "AWS Cloud Mastery Series #3: Theo AWS Well-Architected Security Pillar"
 
-### Mục tiêu buổi học
+### Mục đích của sự kiện
 
 - Nắm nền tảng về Bảo mật (Security Foundation).
 - Quản lý xem ai được vào và được làm gì (Identity & Access Management).
@@ -17,7 +17,7 @@ pre: " <b> 4.4. </b> "
 - Bảo vệ hạ tầng và dữ liệu (Infrastructure & Data Protection).
 - Làm gì khi "có biến" (Incident Response).
 
-### Diễn giả
+### Danh sách diễn giả
 
 - **Le Vu Xuan An**
 - **Tran Duc Anh**
@@ -27,7 +27,7 @@ pre: " <b> 4.4. </b> "
 - **Viet Nguyen**
 - **Mendel Branski (Long)**
 
-### Những điểm hay ho mình ghi lại được
+### Nội dung nổi bật
 
 #### Giới thiệu về Cloud Club
 
@@ -63,7 +63,7 @@ pre: " <b> 4.4. </b> "
 
 - Một cách để ngăn chặn người dùng (hoặc Role) tự cấp quyền quá cao cho bản thân. Nó tạo ra một cái "trần" quyền hạn không thể vượt qua.
 
-#### Multi-Factor Authentication (MFA) - Phải dùng!
+#### Multi-Factor Authentication (MFA) 
 
 - **TOTP**: Mã 6 số trên Google Authenticator. Miễn phí, dễ dùng, sao lưu linh hoạt.
 - **FIDO2**: Khóa vật lý (USB) chạm vào là xong. Bảo mật cao hơn, khó bị hack hơn nhưng tốn tiền mua khóa.
@@ -78,18 +78,18 @@ pre: " <b> 4.4. </b> "
 - **Chuẩn bị**: Phải có tool tự động *trước khi* sự cố xảy ra.
 - **Rút kinh nghiệm**: Sau khi sửa xong, luôn phải họp lại để xem tại sao bị lỗi để lần sau không bị nữa.
 
-### Áp dụng vào công việc
+### Ứng dụng vào công việc
 
 - **Nguyên tắc đặc quyền tối thiểu**: Rà soát lại dự án, chỉ cấp quyền vừa đủ dùng, không cấp Admin lung tung nữa.
 - **Bật MFA**: Bắt buộc tất cả các tài khoản phải có xác thực 2 bước.
 - **Dự đoán**: Luôn tự hỏi "Lỡ cái này hỏng thì sao?" và chuẩn bị sẵn phương án.
 
-### Trải nghiệm tham gia
+### Trải nghiệm tại sự kiện
 
-Tham gia buổi workshop **“Theo AWS Well-Architected Security Pillar”** giúp mình nhận ra bảo mật không chỉ là cài firewall, mà là cả một tư duy hệ thống.
+Tham gia buổi workshop **“AWS Well-Architected Security Pillar”** giúp mình nhận ra bảo mật không chỉ là cài firewall, mà là cả một tư duy hệ thống.
 
-#### Học từ các đàn anh (Senior)
-- Nghe các anh Senior chia sẻ về cách xử lý khi "có biến" (incident) rất thực tế. Các anh nhấn mạnh nhiều vào việc "học được gì sau sự cố" thay vì chỉ lo sửa cho xong.
+#### Học hỏi từ các diễn giả giàu chuyên môn 
+- Nghe các anh chia sẻ về cách xử lý khi "có biến" (incident) rất thực tế. Các anh nhấn mạnh nhiều vào việc "học được gì sau sự cố" thay vì chỉ lo sửa cho xong.
 
 #### Giao lưu với Cloud Club
 - Được biết thêm về các hoạt động của Cloud Club, nơi kết nối những người học AWS từ khắp nơi.
